@@ -41,52 +41,7 @@ var VisualiseApp = function() {
     }
 }
 
-var AreaChart = function(domSelection, data, key) {
 
-    var height = 96;
-    var width = 295;
-
-    this.svg = d3.select(domSelection)
-        .append("svg")
-        .attr("width", width)
-        .attr("height", height)
-        .append("g")
-    
-    _nutrient = data.map((d)=>d[key]);
-    _min = _.min(_nutrient) 
-    _max = _.max(_nutrient)
-    
-    console.log(_nutrient)
-    _groupBy = _.groupBy(_nutrient, Math.round);
-
-    //TODO: I ignores 0'
-    _dist = _.range(1, _max).map((i) => {
-        if (_.has(_groupBy, i)) {
-            return _groupBy[i].length;
-        }
-        return 0;
-    });
-
-    
-    _y = d3.scaleLinear()
-    .domain([0, _.max(_dist)]).nice()
-    .range([height, 0])
-
-    _x = d3.scaleLinear()
-    .domain([0, _max]).nice()
-    .range([0, width])
-
-    this.svg.append("path")
-        .datum(_dist)
-        .attr("fill", "#cce5df")
-        .attr("stroke", "#69b3a2")
-        .attr("stroke-width", 1.5)
-        .attr("d", d3.area()
-            .x((d, i) => _x(i))
-            .y1(_y(0))
-            .y0((d, i) => _y(d))
-        )
-}
 var app = new VisualiseApp();
 
 
