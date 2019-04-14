@@ -1,0 +1,11 @@
+h1{
+    float: none;
+}
+
+.filter-area h3{
+    /* text-align: left; */
+}
+
+.filter-area .chartContainer{
+    height: 96px;
+}
