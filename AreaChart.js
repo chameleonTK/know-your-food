@@ -1,5 +1,9 @@
-var AreaChart = function(domSelection, data, key) {
+var tooltip = d3.select("body")
+    .append("div")	
+    .attr("class", "tooltip")				
+    .style("opacity", 0);
 
+var AreaChart = function(domSelection, data, key) {
     var vm = this;
     var height = 96;
     var width = 295;
@@ -12,6 +16,9 @@ var AreaChart = function(domSelection, data, key) {
             .on("start", _dragstarted)
             .on("drag", _dragged)
             .on("end", _dragended))
+        .on("mouseover", _mouseover)					
+        .on("mouseout", _mouseout)
+        .on('mousemove', _mousemove)
         .append("g")
     
     _nutrient = data.map((d)=>d[key]);
@@ -53,6 +60,12 @@ var AreaChart = function(domSelection, data, key) {
     .attr("class", "filter")
     .attr("id", "filter-"+key)
 
+    this.line = this.svg.append('line')
+        .attr('id', "line-"+key)
+        .attr('class', 'focus-line')
+        .attr('stroke', "#fff")
+        .attr('stroke-width', 1);
+
     function _dragstarted(d) {
         var mouse = d3.mouse(this);
         var x = _x.invert(mouse[0]);
@@ -88,5 +101,23 @@ var AreaChart = function(domSelection, data, key) {
     function _dragended(d) {
         d3.select(this).raise().classed("active", false);
     }
+
+    function _mouseover(d) {
+        vm.line.style('display', null); 
+    }
+
+    function _mouseout(d) {
+        vm.line.style('display', 'none'); 
+    }
+
+    function _mousemove(d) {
+        var mouse = d3.mouse(this);
+        var x = _x.invert(mouse[0]);
+
+        vm.line
+        .attr('x1', mouse[0]).attr('y1', 0)
+        .attr('x2', mouse[0]).attr('y2', height);
+    }
 }
 
+//TODO: show (value) when hover
