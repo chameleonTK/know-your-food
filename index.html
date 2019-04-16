@@ -33,8 +33,6 @@
 
         <div class="container">
             <div class="filter-area">
-                <svg id="legend"></svg>
-
                 <!-- Nutrients box -->
                 <div class="chartCategory nutrients">
                     <h2>Nutrients</h2>
@@ -67,6 +65,42 @@
                         <div id="chart-fiber" class="chart small"></div>
                     </div>
                 </div>
+
+                <div class="chartCategory supplementary">
+                    <h2>Supplementary</h2>
+
+                    <div class="chartContainer">
+
+                        <h3 class="dimension ">Minerals</h3>
+
+                        <div id="chart-mineralas" class="chart small"></div>
+                    </div>
+
+                    <div class="chartContainer">
+
+                        <h3 class="dimension ">Vitamins</h3>
+
+                        <div id="chart-vitamins" class="chart small"></div>
+                    </div>
+                </div>
+
+                <div class="chartCategory allergic">
+                    <h2>Allergic</h2>
+
+                    <div class="chartContainer">
+                        <h3 class="dimension ">What I cannot eat</h3>
+                        <div id="chart-allergic" class="chart small"></div>
+                    </div>
+                </div>
+
+                <div class="chartCategory preference">
+                    <h2>Preference</h2>
+
+                    <div class="chartContainer">
+                        <h3 class="dimension ">What I like</h3>
+                        <div id="chart-preference" class="chart small"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -78,6 +112,7 @@
         <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
         <script type="text/javascript" src="app.js"></script>
         <script type="text/javascript" src="AreaChart.js"></script>
+        <script type="text/javascript" src="BubbleChart.js"></script>
 
         <script type="text/javascript">
             var options = {}
