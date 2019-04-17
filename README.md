@@ -9,7 +9,7 @@ The main dataset we used is from [USDA Food Composition Databases](https://ndb.n
 
 ## Our Team
 * Pakawat Nakwijt [@chameleonTK](https://github.com/chameleonTK)
-* MengXue Li
+* MengXue Li [@mxzpl](https://github.com/mxzpl)
 
 
 ## License
