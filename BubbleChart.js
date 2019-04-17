@@ -14,7 +14,6 @@ var BubbleChart = function(domSelection, data, options) {
         .attr("height", height)
         .append("g")
 
-    console.log(data[0])
     _allergy = _.map(keys, (label, name) => {
         var count = _.countBy(data, (d) => d._raw[name]=="True")
 

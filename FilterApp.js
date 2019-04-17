@@ -1,34 +1,10 @@
-var VisualiseApp = function() {
+function FilterApp() {
     var vm = this;
     vm.dataset = [];
     vm.filterCharts = {};
 
-    vm.preprocessing = function(data) {
-        return data.map(vm.format);
-    }
-
-    vm.format = function(item) {
-        return {
-            name: item.name,
-            protein: vm.val(item, "Protein[Output_Value]", "Protein[Output_UOM]", "Protein[Derivation_Code]"),
-            carbohydrate: vm.val(item, "Carbohydrate, by difference[Output_Value]", "Carbohydrate, by difference[Output_UOM]", "Carbohydrate, by difference[Derivation_Code]"),
-            fat: vm.val(item, "Fatty acids, total trans[Output_Value]", "Fatty acids, total trans[Output_UOM]", "Fatty acids, total trans[Derivation_Code]") + vm.val(item, "Fatty acids, total saturated[Output_Value]", "Fatty acids, total saturated[Output_UOM]", "Fatty acids, total saturated[Derivation_Code]"),
-            fiber: vm.val(item, "Fiber, total dietary[Output_Value]", "Fiber, total dietary[Output_UOM]", "Fiber, total dietary[Derivation_Code]"),
-            _raw: item,
-        }
-    }
-
-    vm.val = function(item, valueKey, uomKey, dervKey) {
-        if (item[uomKey] == "g") {
-            return isNaN(+item[valueKey])? 0: +item[valueKey];
-        } else if (item[uomKey] == "") {
-            return 0;
-        }
-
-        console.error("Unkonw unit", item[uomKey]);
-        return 0;
-    }
-
+    App.call(this)
+    
     vm.getAllergicChart = function(data) {
         keys = {
             allergy_eggs_milk: "Eggs & Milk",
@@ -58,7 +34,7 @@ var VisualiseApp = function() {
             keys,
             pos,
             offset: labelOffsets,
-            height: 385,
+            height: 450,
         }))
     }
 
@@ -106,19 +82,22 @@ var VisualiseApp = function() {
             height: 450,
         }))
     }
+}
 
-    vm.visualize = function(data) {
-        var data = vm.preprocessing(data)
-        vm.filterCharts = {
-            protein: new AreaChart("#chart-protein", data, "protein"),
-            carbohydrate: new AreaChart("#chart-carbohydrate", data, "carbohydrate"),
-            fat: new AreaChart("#chart-fat", data, "fat"),
-            fiber: new AreaChart("#chart-fiber", data, "fiber"),
-            allergic: vm.getAllergicChart(data),
-            prefernce: vm.getPreferenceChart(data),
-        };
-    }
+FilterApp.prototype = Object.create(App.prototype)
+FilterApp.prototype.visualize = function(data) {
+    var data = this.preprocessing(data)
+    this.filterCharts = {
+        protein: new AreaChart("#chart-protein", data, "protein"),
+        carbohydrate: new AreaChart("#chart-carbohydrate", data, "carbohydrate"),
+        fat: new AreaChart("#chart-fat", data, "fat"),
+        fiber: new AreaChart("#chart-fiber", data, "fiber"),
+        allergic: this.getAllergicChart(data),
+        prefernce: this.getPreferenceChart(data),
+        mineralas: new RadarChart("#chart-mineralas", data),
+        vitamins: new RadarChart("#chart-vitamins", data),
+    };
 }
 
 
-var app = new VisualiseApp();
+var filterApp = new FilterApp();

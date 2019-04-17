@@ -5,7 +5,7 @@ var tooltip = d3.select("body")
 
 var AreaChart = function(domSelection, data, key) {
     var vm = this;
-    var height = 96;
+    var height = 106.875;
     var width = 295;
 
     this.svg = d3.select(domSelection)

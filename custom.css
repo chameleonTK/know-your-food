@@ -2,6 +2,10 @@ h1{
     float: none;
 }
 
+.filter-area, .dist-area{
+    height: auto;
+}
+
 .filter-area h3{
     /* text-align: left; */
 }
@@ -15,3 +19,41 @@ h1{
     cursor: crosshair;
 }
 
+/* .dist-area {
+    height: 500px;
+} */
+
+.dist-area .chartContainer {
+    float: left;
+}
+
+.search-area .search-box{
+    border: #2bffeb;
+    border: #2bffeb 1px solid;
+    height: 500px;
+    width: 250px;
+    margin-top: 60px;
+    margin-left: 20px;
+}
+
+::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: #FF0000;
+}
+
+#food-list li {
+    /* margin-bottom: 15px; */
+    line-height: 18px;
+    padding: 7.5px 10px;
+    cursor: pointer;
+}
+
+#food-list li:hover{
+    background-color: #2bffeb;
+    color: #000;
+    
+}

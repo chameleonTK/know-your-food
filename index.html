@@ -1,139 +1,167 @@
-    <!DOCTYPE html>
-    <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>CS5044 Information Visualisation</title>
-        <link href="base.css" media="screen" rel="stylesheet" type="text/css">
-        <link href="custom.css" media="screen" rel="stylesheet" type="text/css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CS5044 Information Visualisation</title>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="base.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="custom.css" media="screen" rel="stylesheet" type="text/css">
 
-        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-    </head>
+    
+</head>
 
-    <body>
-        <!-- svg pattern definitions -->
-        <svg width="0" height="0">
-            <defs>
-                <!-- diagonal hatch from http://stackoverflow.com/questions/13069446/simple-fill-pattern-in-svg-diagonal-hatching -->
-                <pattern id="diagonalHatch" patternUnits="userSpaceOnUse" width="4" height="4">
-                    <path d="M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2" />
-                </pattern>
-            </defs>
-        </svg>
+<body>
+    <!-- svg pattern definitions -->
+    <svg width="0" height="0">
+        <defs>
+            <!-- diagonal hatch from http://stackoverflow.com/questions/13069446/simple-fill-pattern-in-svg-diagonal-hatching -->
+            <pattern id="diagonalHatch" patternUnits="userSpaceOnUse" width="4" height="4">
+                <path d="M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2" />
+            </pattern>
+        </defs>
+    </svg>
 
-        <div id="header" class="">
-            <div class="container">
-                <h1>Know your food</h1>
-            </div>
-        </div>
-        <!-- /header -->
-
-
+    <div id="header" class="">
         <div class="container">
-            <div class="filter-area">
-                <!-- Nutrients box -->
-                <div class="chartCategory nutrients">
-                    <h2>Nutrients</h2>
+            <h1>Know your food</h1>
+        </div>
+    </div>
+    <!-- /header -->
 
-                    <div class="chartContainer">
 
-                        <h3 class="dimension ">Protein</h3>
+    <div class="container" style="margin-bottom:30px">
+        <div class="filter-area">
+            <!-- Nutrients box -->
+            <div class="chartCategory nutrients">
+                <h2>Nutrients</h2>
 
-                        <div id="chart-protein" class="chart small"></div>
-                    </div>
+                <div class="chartContainer">
 
-                    <div class="chartContainer">
+                    <h3 class="dimension ">Protein</h3>
 
-                        <h3 class="dimension ">Carbohydrates</h3>
-
-                        <div id="chart-carbohydrate" class="chart small"></div>
-                    </div>
-
-                    <div class="chartContainer">
-
-                        <h3 class="dimension ">Fat</h3>
-
-                        <div id="chart-fat" class="chart small"></div>
-                    </div>
-
-                    <div class="chartContainer">
-
-                        <h3 class="dimension ">Fiber</h3>
-
-                        <div id="chart-fiber" class="chart small"></div>
-                    </div>
+                    <div id="chart-protein" class="chart small"></div>
                 </div>
 
-                <div class="chartCategory supplementary">
-                    <h2>Supplementary</h2>
+                <div class="chartContainer">
 
-                    <div class="chartContainer">
+                    <h3 class="dimension ">Carbohydrates</h3>
 
-                        <h3 class="dimension ">Minerals</h3>
-
-                        <div id="chart-mineralas" class="chart small"></div>
-                    </div>
-
-                    <div class="chartContainer">
-
-                        <h3 class="dimension ">Vitamins</h3>
-
-                        <div id="chart-vitamins" class="chart small"></div>
-                    </div>
+                    <div id="chart-carbohydrate" class="chart small"></div>
                 </div>
 
-                <div class="chartCategory allergic">
-                    <h2>Allergic</h2>
+                <div class="chartContainer">
 
-                    <div class="chartContainer">
-                        <h3 class="dimension ">What I cannot eat</h3>
-                        <div id="chart-allergic" class="chart small"></div>
-                    </div>
+                    <h3 class="dimension ">Fat</h3>
+
+                    <div id="chart-fat" class="chart small"></div>
                 </div>
 
-                <div class="chartCategory preference">
-                    <h2>Preference</h2>
+                <div class="chartContainer">
 
-                    <div class="chartContainer">
-                        <h3 class="dimension ">What I like</h3>
-                        <div id="chart-preference" class="chart small"></div>
-                    </div>
+                    <h3 class="dimension ">Fiber</h3>
+
+                    <div id="chart-fiber" class="chart small"></div>
                 </div>
             </div>
+
+            <div class="chartCategory supplementary">
+                <h2>Supplementary</h2>
+
+                <div class="chartContainer">
+
+                    <h3 class="dimension ">Minerals</h3>
+
+                    <div id="chart-mineralas" class="chart small"></div>
+                </div>
+
+                <div class="chartContainer">
+
+                    <h3 class="dimension ">Vitamins</h3>
+
+                    <div id="chart-vitamins" class="chart small"></div>
+                </div>
+            </div>
+
+            <div class="chartCategory allergic">
+                <h2>Allergic</h2>
+
+                <div class="chartContainer">
+                    <h3 class="dimension ">What I cannot eat</h3>
+                    <div id="chart-allergic" class="chart small"></div>
+                </div>
+            </div>
+
+            <div class="chartCategory preference">
+                <h2>Preference</h2>
+
+                <div class="chartContainer">
+                    <h3 class="dimension ">What I like</h3>
+                    <div id="chart-preference" class="chart small"></div>
+                </div>
+            </div>
+            <div style="clear:both"></div>
         </div>
+    </div>
 
-        <div id="overlay"></div>
+    <div class="container">
+        <h1><b>259</b> of 1000 dishes</h1>
+        <div class="dist-area">
+            <div class="chartContainer">
+                <div id="chart-food-cluster" class="chart small"></div>
+            </div>
+            <div class="search-area" style="float:left">
+                <div class="search-box" style="height: 400px;" >
+                    <div style="padding: 10px;">
+                        <input type="text" placeholder="Find your favorite" style="margin-bottom: 15px;">
+                    </div>
+                    <ul id="food-list" style="height: 300px;overflow-y: scroll;overflow-x: hidden;"></ul>
+                    
+                </div>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+    </div>
 
-        <!-- imports -->
-        <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.9.2/d3.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
-        <script type="text/javascript" src="app.js"></script>
-        <script type="text/javascript" src="AreaChart.js"></script>
-        <script type="text/javascript" src="BubbleChart.js"></script>
+    <div id="overlay"></div>
 
-        <script type="text/javascript">
-            var options = {}
-            d3.csv('p3_food_with_allergy_sample.csv').then(function (data) {
-                app.visualize(data, options);
+    <!-- imports -->
+    <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.9.2/d3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
+    <script type="text/javascript" src="App.js"></script>
+    <script type="text/javascript" src="FilterApp.js"></script>
+    <script type="text/javascript" src="AreaChart.js"></script>
+    <script type="text/javascript" src="BubbleChart.js"></script>
+    <script type="text/javascript" src="RadarChart.js"></script>
+
+    <script type="text/javascript" src="ExplorerApp.js"></script>
+
+    <script type="text/javascript">
+        var options = {}
+
+        d3.selection.prototype.moveToFront = function () {
+            return this.each(function () {
+                this.parentNode.appendChild(this);
             });
+        };
 
-            // app.views.charts
-            // .polygonChart()
-            // .id("bar09")
-            // .dimension(app.data.calm)
-            // .verticalParameter("value")
-            // .width($("#chart09").parent().width())
-            // .height(96)
-            // .initialBrushExtent(u.bar09)
-            // .tooltipScale(["not calm","calm"])
-            // .brushed(brushed)
-            // .hoverCallback(hover)
-            // .unhoverCallback(unhover)
+        d3.selection.prototype.moveToBack = function () {
+            return this.each(function () {
+                var firstChild = this.parentNode.firstChild;
+                if (firstChild) {
+                    this.parentNode.insertBefore(this, firstChild);
+                }
+            });
+        };
+        d3.csv('p3_food_with_allergy_sample.csv').then(function (data) {
+            filterApp.visualize(data, options);
+            explorerApp.visualize(data, options);
+        });
+    </script>
+</body>
 
-        </script>
-    </body>
-
-    </html>
+</html>
