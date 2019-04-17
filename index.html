@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>CS5044 Information Visualisation</title>
+    <title>Which diet is right for me? :: CS5044 Information Visualisation</title>
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="base.css" media="screen" rel="stylesheet" type="text/css">
@@ -25,15 +25,22 @@
         </defs>
     </svg>
 
-    <div id="header" class="">
+    <!-- <div id="header" class="">
         <div class="container">
-            <h1>Know your food</h1>
+            <h1>WHICH DIET IS RIGHT FOR ME?</h1>
         </div>
-    </div>
+    </div> -->
     <!-- /header -->
 
+    <div class="container" style="margin:30px auto">
+        <h1 style="margin-bottom: 10px;">WHICH DIET IS RIGHT FOR ME?</h1>
+        <p>
+            Lorem ipsum dolor sit amet, ut nam quis illud, ne modus dolore abhorreant eam, elitr exerci adversarium his ea. Nec nusquam deserunt ne, aliquip voluptatum interesset duo eu, id enim animal has. Eu vim habemus officiis, ad pro vero habeo. Sonet soluta voluptaria vis te.
+        </p>
+    </div>
 
     <div class="container" style="margin-bottom:30px">
+        <h1>Know your food</h1>
         <div class="filter-area">
             <!-- Nutrients box -->
             <div class="chartCategory nutrients">
@@ -107,7 +114,7 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container" style="margin-bottom:30px">
         <h1><b>259</b> of 1000 dishes</h1>
         <div class="dist-area">
             <div class="chartContainer">
@@ -126,7 +133,22 @@
         </div>
     </div>
 
-    <div id="overlay"></div>
+    <div class="container" style="margin-bottom:30px">
+        <h1>Design your diet</h1>
+        <div class="detail-area">
+            <div class="chartContainer">
+                <div id="chart-calories" class="chart small"></div>
+                <div id="chart-proportion" class="chart small"></div>
+            </div>
+            <div class="chartContainer">
+                <div id="food-tag-list" class="chart small">
+                    <ul></ul>
+                </div>
+                <div id="chart-nutrients-detail" class="chart small"></div>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+    </div>
 
     <!-- imports -->
     <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
@@ -138,7 +160,11 @@
     <script type="text/javascript" src="BubbleChart.js"></script>
     <script type="text/javascript" src="RadarChart.js"></script>
 
+    <script type="text/javascript" src="PieChart.js"></script>
+    <script type="text/javascript" src="TernaryPlot.js"></script>
+
     <script type="text/javascript" src="ExplorerApp.js"></script>
+    <script type="text/javascript" src="DesignApp.js"></script>
 
     <script type="text/javascript">
         var options = {}
@@ -157,9 +183,10 @@
                 }
             });
         };
-        d3.csv('p3_food_with_allergy_sample.csv').then(function (data) {
+        d3.csv('small_sample.csv').then(function (data) {
             filterApp.visualize(data, options);
             explorerApp.visualize(data, options);
+            designApp.visualize(data, options);
         });
     </script>
 </body>

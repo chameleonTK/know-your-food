@@ -37,8 +37,6 @@ var RadarChart = function(domSelection, data, options) {
     .range([0, 100])
 
     _values = _.range(0, nAxis).map(()=> _.random(0, 100, false))
-
-    console.log(_values)
     _ele.selectAll("polygon")
     .data([_values])
     .enter().append("polygon")
