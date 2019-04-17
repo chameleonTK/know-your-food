@@ -16,7 +16,6 @@ DesignApp.prototype.visualize = function(data) {
 
     var caloriesChart = new PieChart("#chart-calories", _data, {innerRadius: 40, innerText: innerText})
     var proportionChart = new PieChart("#chart-proportion", _data, {})
-    var nutrientsChart = new ScaleChart("#chart-nutrients-detail", _data, {})
 
     function innerText() {
         return "450";
