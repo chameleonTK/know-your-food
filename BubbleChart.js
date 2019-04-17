@@ -62,7 +62,7 @@ var BubbleChart = function(domSelection, data, options) {
 
     this.svg
     .append("text")
-    .attr("dx", width-65)
+    .attr("dx", width-70)
     .attr("dy", height-20)
     .text("30%")
     .style("font-size", "28px")

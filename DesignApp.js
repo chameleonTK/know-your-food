@@ -20,13 +20,15 @@ DesignApp.prototype.visualize = function(data) {
     function innerText() {
         return "450";
     }
-    // var itemDOMs = _.slice(data, 0, 200).map((d) => {
-    //     return  $('<li>').html(_.capitalize(d.name));
-    // })
+    var itemDOMs = _.slice(_data, 0, 200).map((d) => {
+        _dom = $('<li>').append($('<span>').html(_.capitalize(d.name)));
+        _dom.append('<i class="tiny material-icons dp48">close</i>')
+        return  _dom;
+    })
 
-    // _.forEach(itemDOMs, (d) => {
-    //     $("#food-tag-list").append(d);
-    // })
+    _.forEach(itemDOMs, (d) => {
+        $("#food-tag-list > ul").append(d);
+    })
 }
 
 var designApp = new DesignApp();

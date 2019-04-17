@@ -28,7 +28,6 @@ h1{
 }
 
 .search-area .search-box{
-    border: #2bffeb;
     border: #2bffeb 1px solid;
     height: 500px;
     width: 250px;
@@ -55,5 +54,22 @@ h1{
 #food-list li:hover{
     background-color: #2bffeb;
     color: #000;
-    
+}
+
+#food-tag-list li{
+    border: #2bffeb 1px solid;
+    color: #fff;
+    padding: 8px 5px 5px 5px;
+    display: inline-block;
+    background-color: #00ffe433;
+    margin-left: 7.5px;
+}
+
+#food-tag-list li > span {
+    margin-right: 5px;
+}
+
+.material-icons{
+    cursor: pointer;
+    vertical-align: middle;
 }
