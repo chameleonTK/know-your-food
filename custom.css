@@ -73,3 +73,7 @@ h1{
     cursor: pointer;
     vertical-align: middle;
 }
+
+#chart-nutrients-detail .over > rect{
+    fill: red !important;
+}

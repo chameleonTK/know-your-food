@@ -38,16 +38,16 @@ var PieChart = function(domSelection, data, options) {
     console.log(options)
     if (options.innerText) {
         console.log(options.innerText())
-        this.svg.selectAll("g")
-        .attr("transform", function(d) {
-            var _d = _arc.centroid(d);
-            _d[0] *= 1.5;
-            _d[1] *= 1.5;
-            return "translate(" + _d + ")";
-        })
-        .attr("dy", ".50em")
+        this.svg.append("text")
         .style("text-anchor", "middle")
-        .text(options.innerText());
+        .text(options.innerText())
+        .style("font-size", "28px");
+
+        this.svg.append("text")
+        .style("text-anchor", "middle")
+        .attr("dy", "1em")
+        .text("kcal")
+        .style("font-size", "18px");
     }
     
     
