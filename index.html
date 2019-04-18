@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Which diet is right for me? :: CS5044 Information Visualisation</title>
-    
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="base.css" media="screen" rel="stylesheet" type="text/css">
     <link href="custom.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="custom-tk.css" media="screen" rel="stylesheet" type="text/css">
 
-    
 </head>
 
 <body>
@@ -33,135 +33,138 @@
     </div> -->
     <!-- /header -->
 
-    <div class="container" id= "header" style="margin:8px auto">
+    <div class="container" id="header" style="margin:8px auto">
         <div id="top-left">
             <img id="diet_img" src="pic/diet_blue.png" alt="diet">
         </div>
         <div id="top-right">
             <h1 id="title" style="margin-bottom: 10px;">WHICH DIET IS RIGHT FOR ME?</h1>
             <p id="introduction">
-                Lorem ipsum dolor sit amet, ut nam quis illud, ne modus dolore abhorreant eam, elitr exerci adversarium his ea. Nec nusquam deserunt ne, aliquip voluptatum interesset duo eu, id enim animal has. Eu vim habemus officiis, ad pro vero habeo. Sonet soluta voluptaria vis te.
+                Lorem ipsum dolor sit amet, ut nam quis illud, ne modus dolore abhorreant eam, elitr exerci adversarium
+                his ea. Nec nusquam deserunt ne, aliquip voluptatum interesset duo eu, id enim animal has. Eu vim
+                habemus officiis, ad pro vero habeo. Sonet soluta voluptaria vis te.
             </p>
         </div>
-        
+
     </div>
-    
-    <div class = "card" style="margin:8px auto">
+
+    <div class="card card-container" style="margin:8px auto">
         <div class="container" style="margin-bottom:30px">
-        <h1 class="subtitle">Know your food</h1>
-        <hr>
-        <div class="filter-area">
-            <!-- Nutrients box -->
-            <div class="chartCategory nutrients">
-                <h2>Nutrients</h2>
+            <h1 class="subtitle">Know your food</h1>
+            <hr>
+            <div class="filter-area">
+                <!-- Nutrients box -->
+                <div class="chartCategory nutrients">
+                    <h2>Nutrients</h2>
 
-                <div class="chartContainer">
+                    <div class="chartContainer">
 
-                    <h3 class="dimension ">Protein</h3>
+                        <h3 class="dimension ">Protein</h3>
 
-                    <div id="chart-protein" class="chart small"></div>
+                        <div id="chart-protein" class="chart small"></div>
+                    </div>
+
+                    <div class="chartContainer">
+
+                        <h3 class="dimension ">Carbohydrates</h3>
+
+                        <div id="chart-carbohydrate" class="chart small"></div>
+                    </div>
+
+                    <div class="chartContainer">
+
+                        <h3 class="dimension ">Fat</h3>
+
+                        <div id="chart-fat" class="chart small"></div>
+                    </div>
+
+                    <div class="chartContainer">
+
+                        <h3 class="dimension ">Fiber</h3>
+
+                        <div id="chart-fiber" class="chart small"></div>
+                    </div>
                 </div>
 
-                <div class="chartContainer">
+                <div class="chartCategory supplementary">
+                    <h2>Supplementary</h2>
 
-                    <h3 class="dimension ">Carbohydrates</h3>
+                    <div class="chartContainer">
 
-                    <div id="chart-carbohydrate" class="chart small"></div>
+                        <h3 class="dimension ">Minerals</h3>
+
+                        <div id="chart-mineralas" class="chart small"></div>
+                    </div>
+
+                    <div class="chartContainer">
+
+                        <h3 class="dimension ">Vitamins</h3>
+
+                        <div id="chart-vitamins" class="chart small"></div>
+                    </div>
                 </div>
 
-                <div class="chartContainer">
+                <div class="chartCategory allergic">
+                    <h2>Allergic</h2>
 
-                    <h3 class="dimension ">Fat</h3>
-
-                    <div id="chart-fat" class="chart small"></div>
+                    <div class="chartContainer">
+                        <h3 class="dimension ">What I cannot eat</h3>
+                        <div id="chart-allergic" class="chart small"></div>
+                    </div>
                 </div>
 
-                <div class="chartContainer">
+                <div class="chartCategory preference">
+                    <h2>Preference</h2>
 
-                    <h3 class="dimension ">Fiber</h3>
-
-                    <div id="chart-fiber" class="chart small"></div>
+                    <div class="chartContainer">
+                        <h3 class="dimension ">What I like</h3>
+                        <div id="chart-preference" class="chart small"></div>
+                    </div>
                 </div>
+                <div style="clear:both"></div>
             </div>
-
-            <div class="chartCategory supplementary">
-                <h2>Supplementary</h2>
-
-                <div class="chartContainer">
-
-                    <h3 class="dimension ">Minerals</h3>
-
-                    <div id="chart-mineralas" class="chart small"></div>
-                </div>
-
-                <div class="chartContainer">
-
-                    <h3 class="dimension ">Vitamins</h3>
-
-                    <div id="chart-vitamins" class="chart small"></div>
-                </div>
-            </div>
-
-            <div class="chartCategory allergic">
-                <h2>Allergic</h2>
-
-                <div class="chartContainer">
-                    <h3 class="dimension ">What I cannot eat</h3>
-                    <div id="chart-allergic" class="chart small"></div>
-                </div>
-            </div>
-
-            <div class="chartCategory preference">
-                <h2>Preference</h2>
-
-                <div class="chartContainer">
-                    <h3 class="dimension ">What I like</h3>
-                    <div id="chart-preference" class="chart small"></div>
-                </div>
-            </div>
-            <div style="clear:both"></div>
         </div>
-    </div>
 
         <div class="container" style="margin-bottom:10px">
-        <h1 id="graph-title"><b>259</b> of 1000 dishes</h1>
-        <div class="dist-area">
-            <div class="chartContainer" id="graph-left">
-                <div id="chart-food-cluster" class="chart small"></div>
-            </div>
-            <div class="search-area" id="graph-right">
-                <div class="search-box">
-                    <div id="search-bar">
-                        <input id="search-bar-input" type="text" placeholder="  Find your favorite">
-                    </div>
-                    <ul id="food-list"></ul>
-                    
+            <h1 id="graph-title"><b>259</b> of 1000 dishes</h1>
+            <div class="dist-area">
+                <div class="chartContainer" id="graph-left">
+                    <div id="chart-food-cluster" class="chart small"></div>
                 </div>
+                <div class="search-area" id="graph-right">
+                    <div class="search-box">
+                        <div id="search-bar">
+                            <input id="search-bar-input" type="text" placeholder="  Find your favorite">
+                        </div>
+                        <ul id="food-list"></ul>
+
+                    </div>
+                </div>
+                <div style="clear:both"></div>
             </div>
-            <div style="clear:both"></div>
         </div>
-    </div>   
     </div>
 
-    
 
-    <div class="container card" style="margin-bottom:30px">
-        <h1 class="subtitle">Design your diet </h1>
-        <hr>
-        <div class="detail-area" style="margin-top:15px">
-            <div class="chartContainer" style="float: left;">
-                <div id="chart-calories" class="chart small"></div>
-                <div id="chart-proportion" class="chart small"></div>
-            </div>
-            <div class="chartContainer" style="float: left;padding-top: 20px;padding-left: 50px;">
-                <div id="food-tag-list" class="chart small">
-                    <ul></ul>
+    <div class="card card-container" style="margin:8px auto">
+        <div class="container" style="margin-bottom:30px">
+            <h1 class="subtitle">Design your diet </h1>
+            <hr>
+            <div class="detail-area" style="margin-top:15px">
+                <div class="chartContainer" style="float: left;">
+                    <div id="chart-calories" class="chart small"></div>
+                    <div id="chart-proportion" class="chart small"></div>
                 </div>
-                <div id="chart-nutrients-detail" class="chart small">
+                <div class="chartContainer" style="float: left;padding-top: 20px;padding-left: 50px;">
+                    <div id="food-tag-list" class="chart small">
+                        <ul></ul>
+                    </div>
+                    <div id="chart-nutrients-detail" class="chart small">
 
+                    </div>
                 </div>
+                <div style="clear:both"></div>
             </div>
-            <div style="clear:both"></div>
         </div>
     </div>
 
