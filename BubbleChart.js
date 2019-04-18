@@ -17,10 +17,9 @@ var BubbleChart = function(domSelection, data, options) {
     _allergy = _.map(keys, (label, name) => {
         var count = _.countBy(data, (d) => d._raw[name]=="True")
 
-        //TODO: resampling data
-        if (count["true"] === undefined || count["true"]===0) {
-            count["true"] = _.random(10, 100, false);
-            count["false"] -= count["true"]
+        // console.log(name, count["true"])
+        if (count["true"] === undefined) {
+            count["true"] = 0;
         }
 
         return {
@@ -32,7 +31,7 @@ var BubbleChart = function(domSelection, data, options) {
 
     _x = d3.scaleLinear()
     .domain([0, data.length]).nice()
-    .range([20, 45])
+    .range([2, 45])
 
     
 

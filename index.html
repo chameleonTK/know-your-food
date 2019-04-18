@@ -47,6 +47,7 @@
             <button>Elder</button>
         </div>
     </div>
+    
     <div class="container" style="margin-bottom:30px">
         <h1>Know your food</h1>
         <div class="filter-area">
@@ -195,23 +196,20 @@
                 }
             });
         };
-
-
-        var mySubscriber = function (msg, data) {
-            console.log( msg, data );
-        };
-
-        // add the function to the list of subscribers for a particular topic
-        // we're keeping the returned token, in order to be able to unsubscribe
-        // from the topic later on
-        var token = PubSub.subscribe('MY TOPIC', mySubscriber);
-
-        // publish a topic asynchronously
-        PubSub.publish('MY TOPIC', 'hello world!');
         
         d3.csv('small_sample.csv').then(function (data) {
-            filterApp.visualize(data, options);
-            explorerApp.visualize(data, options);
+            var filterdSubscriber = function (msg, data) {
+                console.log(msg, data );
+            };
+
+        
+            filterApp.visualize(data, {
+                filterSubscriber: filterdSubscriber
+            });
+
+            explorerApp.visualize(data, {
+                filterSubscriber: filterdSubscriber
+            });
             designApp.visualize(data, options);
         });
     </script>
