@@ -1,0 +1,33 @@
+body {
+    width: 100%;
+}
+
+#header{
+    padding: 0px;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0px;
+}
+
+.card-container{
+    width: 100%;
+    border-radius: 0px;
+}
+
+hr {
+    height: 1px;
+}
+
+h1.subtitle{
+    color: #004e66;
+    text-align: left;
+}
+
+#search-bar-input{
+    padding-left: 10px; 
+    width: auto;
+}
+
+#search-bar {
+    text-align: center;
+}
