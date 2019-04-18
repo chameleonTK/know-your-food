@@ -79,3 +79,11 @@ h1{
 #chart-nutrients-detail .over > rect{
     fill: red !important;
 }
+
+.age button{
+    display: inline-block;
+    margin-right: 10px;
+    background-color: #00ffe433;
+    border: #2bffeb 1px solid;
+    color: #fff;
+}
