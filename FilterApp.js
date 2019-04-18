@@ -3,6 +3,26 @@ function FilterApp() {
     vm.dataset = [];
     vm.filterCharts = {};
 
+    vm.vitamins = {
+        vitamin_A: "Vit A",
+        vitamin_B6: "Vit B6",
+        vitamin_B12: "Vit B12",
+        vitamin_C: "Vit C",
+        vitamin_D: "Vit D",
+    };
+    
+    vm.mineralas = {
+        calcium: "Ca",
+        iron: "Fe",
+        zinc: "Zn",
+        phosphorus: "P",
+        magnesium: "Mg",
+        potassium: "K",
+        sodium: "Na",
+        // chloride: "Cl",
+        iodine: "I",
+    };
+
     App.call(this)
     
     vm.getAllergicChart = function(data) {
@@ -65,10 +85,9 @@ function FilterApp() {
     }
 }
 
-var _vitamins = {};
-var _vitamins = {};
 FilterApp.prototype = Object.create(App.prototype)
-FilterApp.prototype.visualize = function(data) {
+FilterApp.prototype.visualize = function(data, options) {
+    var vm = this;
     var data = this.preprocessing(data)
     this.filterCharts = {
         protein: new AreaChart("#chart-protein", data, "protein"),
@@ -77,7 +96,7 @@ FilterApp.prototype.visualize = function(data) {
         fiber: new AreaChart("#chart-fiber", data, "fiber"),
         allergic: this.getAllergicChart(data),
         prefernce: this.getPreferenceChart(data),
-        mineralas: new RadarChart("#chart-mineralas", data),
-        vitamins: new RadarChart("#chart-vitamins", data),
+        mineralas: new RadarChart("#chart-mineralas", data, options.rni, vm.mineralas, "minerals"),
+        vitamins: new RadarChart("#chart-vitamins", data, options.rni, vm.vitamins, "vitamins"),
     };
 }

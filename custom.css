@@ -89,3 +89,8 @@ h1{
 .personal-info button.active{
     background-color: #04ceb8;
 }
+
+.radar-pt{
+    fill: #029585;
+    fill-opacity: 1;
+}

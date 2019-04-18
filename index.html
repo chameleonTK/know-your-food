@@ -193,15 +193,14 @@
 
     <script type="text/javascript">
         $(function() {
-            var options = {}
             var rniKey = {
                 gender: "male",
                 age: "teenager",
                 key: "teenager_male"
             }
 
+            var filterApp = new FilterApp(rniKey);
             var explorerApp = new ExplorerApp();
-            var filterApp = new FilterApp();
             var designApp = new DesignApp();
             
             $(".btn-age").click(function() {
@@ -251,9 +250,9 @@
             });
 
             d3.csv('small_sample.csv').then(function (data) {
-                filterApp.visualize(data, {});
+                filterApp.visualize(data, {rni: rniKey});
                 explorerApp.visualize(data, {});
-                designApp.visualize(data, options);
+                designApp.visualize(data, {});
             });
         })
     </script>

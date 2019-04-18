@@ -21,8 +21,8 @@ var AreaChart = function(domSelection, data, key) {
         .on('mousemove', _mousemove)
         .append("g")
     
-    var _nutrient = data.map((d)=>d[key]);
-    var _min = _.min(_nutrient) 
+    var _nutrient = data.map((d)=>d[key]/1000.0);
+    var _min = _.min(_nutrient)
     var _max = _.max(_nutrient)
 
     var _groupBy = _.groupBy(_nutrient, Math.round);
