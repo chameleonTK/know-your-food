@@ -10,8 +10,6 @@ var DesignApp = function() {
 
 DesignApp.prototype = Object.create(App.prototype)
 DesignApp.prototype.visualize = function(data) {
-    var data = this.preprocessing(data)
-
     _data = _.slice(data, 0, 3)
 
     var caloriesChart = new PieChart("#chart-calories", _data, {innerRadius: 40, innerText: innerText})

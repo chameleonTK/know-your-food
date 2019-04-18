@@ -42,62 +42,55 @@ var TernaryPlot = function(domSelection, data, options) {
         return pos;
     }
 
-    _data = _.slice(data, 0, 200).map((d) => {
-        sum = d.protein + d.carbohydrate + d.fat;
-        if(sum==0) {
-            return {coord: null};
-        }
+    _init(data);
+    function _init(data) {
+        vm._data = _.slice(data, 0, 200).map((d) => {
+            sum = d.protein + d.carbohydrate + d.fat;
+            if(sum==0) {
+                return {coord: null};
+            }
+            
+            return {
+                protein: d.protein*100.0/sum,
+                carbohydrate: d.carbohydrate*100.0/sum,
+                fat: d.fat*100.0/sum,
+                coord: coord([d.protein*100.0/sum, d.carbohydrate*100.0/sum, d.fat*100.0/sum]),
+                serving_size: d.serving_size,
+                name:d.name
+            };
+    
+        }).filter((d) => d.coord!=null)
+    
+        vm._largest =  options.largest;
+        _x = d3.scaleLinear()
+        .domain([0, vm._largest.serving_size]).nice()
+        .range([5, 50])
+    
+        vm._ele = vm.svg.selectAll("circle")
+        .data(vm._data)
+        .enter()
+        .append("g")
+        .attr("class", "ter-circle")
+        .attr("transform", (d, i) => "translate("+(d.coord[0])+","+(d.coord[1])+")")
+        .on("mouseover", _mouseover)					
+        .on("mouseout", _mouseout)
+    
+        vm._ele.append("circle")
+        .attr('r', (d) => _x(d.serving_size))
         
-        return {
-            protein: d.protein*100.0/sum,
-            carbohydrate: d.carbohydrate*100.0/sum,
-            fat: d.fat*100.0/sum,
-            coord: coord([d.protein*100.0/sum, d.carbohydrate*100.0/sum, d.fat*100.0/sum]),
-            serving_size: d.serving_size,
-            name:d.name
-        };
-
-    }).filter((d) => d.coord!=null)
-
-    var _largest =  _.maxBy(_data, (d)=> d.serving_size);
-    _x = d3.scaleLinear()
-    .domain([0, _largest.serving_size]).nice()
-    .range([5, 50])
-    
-    // _ele = this.svg.selectAll("circle")
-    // .data(_data)
-    // .enter()
-    // .append("circle")
-    // .attr('r', (d) => {
-    //     console.log(d.serving_size, _x(d.serving_size));
-    //     return _x(d.serving_size);
-    // })
-    // .attr('cx', (d) => d.coord[0])
-    // .attr('cy', (d) => d.coord[1])
-
-    _ele = this.svg.selectAll("circle")
-    .data(_data)
-    .enter()
-    .append("g")
-    .attr("transform", (d, i) => "translate("+(d.coord[0])+","+(d.coord[1])+")")
-    .on("mouseover", _mouseover)					
-    .on("mouseout", _mouseout)
-
-    _ele.append("circle")
-    .attr('r', (d) => _x(d.serving_size))
-    
-    _ele.append("text")
-    .attr("dx", 0)
-    .attr("dy", 0)
-    .text((d)=>_.capitalize(d.name))
-    .style("font-size", "10px")
-    .attr("class", "tootip")
-    .style("fill", "red")
-    .style('display', "none")
+        vm._ele.append("text")
+        .attr("dx", 0)
+        .attr("dy", 0)
+        .text((d)=>_.capitalize(d.name))
+        .style("font-size", "10px")
+        .attr("class", "tootip")
+        .style("fill", "red")
+        .style('display', "none")
+        
+    }
 
     function _mouseover(d) {
         d3.select(this).select(".tootip").style('display', null)
-        // d3.select(this).select(".tootip").moveToFront()
         d3.select(this).moveToFront();
     }
 
@@ -105,4 +98,13 @@ var TernaryPlot = function(domSelection, data, options) {
         d3.select(this).select(".tootip").style('display', "none")
         d3.select(this).moveToBack();
     }
+
+
+    function draw(newdata) {
+        vm.svg.selectAll(".ter-circle").remove();
+        _init(newdata)
+    }
+
+    vm.draw = draw;
+    
 }

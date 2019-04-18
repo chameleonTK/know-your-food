@@ -199,7 +199,8 @@
                 key: "teenager_male"
             }
 
-            var filterApp = new FilterApp(rniKey);
+            var app = new App();
+            var filterApp = new FilterApp();
             var explorerApp = new ExplorerApp();
             var designApp = new DesignApp();
             
@@ -239,20 +240,68 @@
             };
             
             var _filter = {}
-            PubSub.subscribe('filter-data', function(msg, data) {
-                for(k in data) {
-                    if (data[k] != null) {
-                        _filter[k] = data[k]
+            var _data = [];
+            PubSub.subscribe('filter-data', function(msg, filterval) {
+                var _filtered_data = _data;
+                for(k in filterval) {
+                    if (filterval[k] != null) {
+                        _filter[k] = filterval[k];
+                    } else {
+                        _filter[k] = null;
                     }
                 }
 
-                console.log("filter", _filter)
+                console.log(_filter)
+
+                var areafilters = ["protein", "carbohydrate", "fat", "fiber"];
+                _.forEach(areafilters, (k) => {
+                    // console.log(_filtered_data.length)
+                    if (_filter[k] != null) {
+                        var min = _.min([_filter[k].start, _filter[k].end])*1000
+                        var max = _.max([_filter[k].start, _filter[k].end])*1000
+                        _filtered_data = _filtered_data.filter((d) => {
+                            return (d[k] >= min) && (d[k] <= max);
+                        })
+                        // console.log(_filtered_data.length)
+                    }
+                })
+                
+                var bubblefilters = ["allergic", "preference"];
+                _.forEach(bubblefilters, (k) => {
+                    var default_status = false;
+                    if (k=="preference") {
+                        default_status = true;
+                    }
+
+                    _.forEach(_filter[k], (ft) => {
+                        if (ft.selected != default_status) {
+                            _filtered_data = _filtered_data.filter((d) => {
+                                return (d[ft.name]=="True") == false;
+                            })
+                        }
+                    })    
+                })
+
+                var radarfilters = ["minerals", "vitamins"];
+                _.forEach(radarfilters, (k) => {
+                    _.forEach(_filter[k], (ft) => {
+                        _filtered_data = _filtered_data.filter((d) => {
+                            return d[ft.key] < ft.value;
+                        })
+                    })    
+                })
+
+                console.log(_filtered_data.length);
+                PubSub.publish('filtered-data-ready', _filtered_data);
+                
             });
 
-            d3.csv('small_sample.csv').then(function (data) {
-                filterApp.visualize(data, {rni: rniKey});
-                explorerApp.visualize(data, {});
-                designApp.visualize(data, {});
+            d3.csv('small_sample.csv').then(function (data) {    
+                _data = app.preprocessing(data);            
+                filterApp.visualize(_data, {rni: rniKey});
+                explorerApp.init(_data);
+                explorerApp.visualize();
+                designApp.visualize(_data, {});
             });
         })
     </script>

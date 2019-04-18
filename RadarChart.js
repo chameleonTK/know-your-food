@@ -145,7 +145,6 @@ var RadarChart = function(domSelection, data, rni, keys, chartkey) {
 
         _min = _.minBy(dist, function(o) { return o.dist; });
         _selectedPoint = _min.index;
-        console.log(_min, _values[_min.index].label)
     }
 
     function _dragged(d) {

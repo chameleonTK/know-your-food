@@ -88,7 +88,6 @@ function FilterApp() {
 FilterApp.prototype = Object.create(App.prototype)
 FilterApp.prototype.visualize = function(data, options) {
     var vm = this;
-    var data = this.preprocessing(data)
     this.filterCharts = {
         protein: new AreaChart("#chart-protein", data, "protein"),
         carbohydrate: new AreaChart("#chart-carbohydrate", data, "carbohydrate"),
