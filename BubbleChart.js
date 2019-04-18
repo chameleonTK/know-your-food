@@ -46,6 +46,7 @@ var BubbleChart = function(domSelection, data, options) {
     
     _ele.append("circle")
     .attr('r', (d) => _x(d.count["true"]))
+    .attr("class", "bubbles")
 
     _hover = _ele.append("circle")
     .attr('r', (d) => _x(d.count["true"])+5)
@@ -55,6 +56,7 @@ var BubbleChart = function(domSelection, data, options) {
 
     _ele
     .append("text")
+    .attr("class", "bubble-text")
     .attr("dy", (d) => 55)
     .attr("dx", (d, i) => _offset[i])
     .text(d => d.label)
@@ -65,8 +67,8 @@ var BubbleChart = function(domSelection, data, options) {
     .attr("dx", width-70)
     .attr("dy", height-20)
     .text("30%")
-    .style("font-size", "28px")
-    .style("fill", "rgb(137, 223, 196)")
+    .style("font-size", "22px")
+    .style("fill", "#660000")
 
     function _mouseover(d) {
         d3.select(this).select(".hover-cir").style('display', null)

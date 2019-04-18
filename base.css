@@ -2,7 +2,7 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
     margin:0;
     padding:0;
     border:0;
-    font:inherit;
+    font:Arial;
     font-size:100%;
     vertical-align:baseline
 }
@@ -45,9 +45,20 @@ article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,secti
 
 /*body*/
 body {
-    font-family:proxima-nova,"Proxima Nova","Myriad Pro","Helvetica Neue",Helvetica,Arial,sans;
+/*    font-family:Arial, proxima-nova,"Proxima Nova","Myriad Pro","Helvetica Neue",Helvetica,sans;*/
     font-size:15px;
-    background:#FCF4D9;
+    background:#e1eef6;
+    color:#474747;
+    font-weight:400;
+    margin:0 auto;
+    padding:0
+}
+
+.card {
+    font-size:15px;
+    background:#fffff3;
+    width: 1200px;
+    border-radius: 10px;
     color:#474747;
     font-weight:400;
     margin:0 auto;
@@ -233,12 +244,128 @@ button.reset:hover {
 
 /*header background*/
 #header{
-    background:#8ED2C9;
-    padding:1.3em 0;
-    min-width:1200px;
-    overflow:hidden;*zoom:1
+    background:#004e66;
+    min-height: 250px;
+    padding: 0;
+    overflow:hidden;
+    *zoom:1;
+    border-radius: 10px;
+    box-shadow: 2px 2px 1px 1px #dbd8d3;
+    display: table;
 }
 
+/**/
+#diet_img {
+    max-height: 500px;
+    max-width: 400px;
+    padding-left: 100px;
+    float: right;
+}
+
+/**/
+#top-left {
+    display: table-cell;
+    vertical-align: middle;
+    position: relative;
+    width: 35%;
+}
+
+/**/
+#top-right {
+    display: table-cell;
+    vertical-align: middle;
+    position: relative;
+    width: 65%;
+
+}
+
+/**/
+#title {
+    font: Arial;
+    color: white;
+    padding-left: 30px;
+    font-size: 25pt;
+    position: relative;
+    text-align: left
+}
+
+/**/
+#introduction {
+    color: white;
+    padding-left: 30px;
+    padding-top: 10px;
+    max-width: 600px;
+    position: relative;
+    text-align: left
+}
+
+/**/
+.subtitle {
+    font-size: 18pt;
+    padding-top: 40px;
+    text-align: center;
+}
+
+/**/
+hr {
+    height: 3px;
+    color: #dbd8d3;
+}
+
+.bubbles {
+    stroke:#ffffff;
+    stroke-opacity: 0.7;
+    fill: #ffffff;
+    fill-opacity: 0.7;
+    display: block;
+}
+
+.bubble-text {
+    fill: #5a6a62;
+    pointer-events: none;
+    font-size: 10pt;
+}
+
+#graph-title {
+    padding-top: 40px;
+}
+
+#graph-left {
+    position: relative;
+    width: 70%;
+}
+
+#graph-right {
+    position: relative;
+    width: 30%;
+    float: right;
+    padding-left: 75px;
+}
+
+#search-bar {
+    padding: 10px;
+    background-color: #fcbe32;
+}
+
+#search-bar-input {
+    margin-bottom: 15px;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
+#food-list {
+    height: 400px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.ternaryplot_circles {
+    stroke:#000000;
+    stroke-opacity:.3;
+    fill:#000000;
+    fill-opacity:.3;
+    display:block
+}
 
 /*
 #header .part-of{
@@ -332,7 +459,9 @@ h2{
 }
 
 @-moz-document url-prefix(){
-    circle.backgroundBubble,path.backgroundPolygon,rect.backgroundBar{fill:rgba(200,200,200,.3)!important}}
+    circle.backgroundBubble,path.backgroundPolygon,rect.backgroundBar{
+        fill:rgba(200,200,200,.3)!important}
+}
 
 /*filter area*/
 .filter-area {
@@ -350,7 +479,9 @@ h2{
 */
 
 .filter-area h2{
-    padding:1em 0
+    padding-top: 30px;
+    padding-bottom: 15px;
+    padding-left: 10px;
 }
 
 .filter-area h3{
@@ -383,7 +514,7 @@ h2{
 }
 
 .filter-area h3.dimension{
-    color:#474747;
+    color:#5a6a62;
     filter:alpha(enabled=false);
     opacity:1
 }
@@ -423,9 +554,10 @@ h2{
 
 /*filter-area chartContainer*/
 .filter-area .chartContainer{
-    background:#FFB85F;
-    border: #FFB85F;
+    background:#fcbe32;
+    border: #fcbe32;
     border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px #dbd8d3;
     margin:0 .5em .5em 0;
     overflow:hidden;*zoom:1
 }
@@ -976,3 +1108,4 @@ svg .extent.bubble{
     stroke:#659fec!important;
     cursor:pointer
 }
+

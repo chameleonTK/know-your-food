@@ -84,6 +84,7 @@ var TernaryPlot = function(domSelection, data, options) {
     .on("mouseout", _mouseout)
 
     _ele.append("circle")
+    .attr("class", "ternaryplot_circles")
     .attr('r', (d) => _x(d.serving_size))
     
     _ele.append("text")

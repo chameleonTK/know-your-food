@@ -19,6 +19,7 @@ var RadarChart = function(domSelection, data, options) {
     .data(_.range(10, 100, 20))
     .enter()
     .append("circle")
+    .attr("class", "supplementary")
     .attr('r', (d) => d)
 
     _ele.selectAll("line")
@@ -48,7 +49,7 @@ var RadarChart = function(domSelection, data, options) {
                 return [rx, ry].join(",");
             }).join(" ");
         })
-        .attr("stroke","rgb(105, 179, 162)")
+        .attr("stroke","#86cccc")
         .attr("stroke-width",2)
-        .attr("fill", "rgba(255, 255, 255, 0.6)");
+        .attr("fill", "rgba(255, 255, 255, 0.8)");
 }

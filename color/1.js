@@ -1,0 +1,21 @@
+var color = ["#dae9f4", "#7f9eb2", "#77919d", "#274c5e"];
+
+var svg = d3.select("#1")
+    .append("svg")
+        .attr("width", 2000)
+        .attr("height", 2000)
+
+d3.select("svg")
+    .selectAll("rect")
+    .data(color)
+    .enter()
+    .append("rect")
+        .attr("width", 80)
+        .attr("height", 20)
+        .attr("x", function(d,i) {return i*100 + 20;})
+        .attr("y", 150)
+        .attr("fill", function(d, i) {return color[i];})
+    .append("text")
+        .attr("x", function(d,i) {return i*100 + 20;})
+        .attr("y", 0)
+        .text(function(d, i) {return color[i];})

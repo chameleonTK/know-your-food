@@ -49,6 +49,7 @@ var ScaleChart = function(domSelection, data, options) {
         return r;
     }
 
+    
     _nutrients = _.map(data, _format)
     _color = _.map(data, getRandomColor);
 

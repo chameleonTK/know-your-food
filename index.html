@@ -33,15 +33,23 @@
     </div> -->
     <!-- /header -->
 
-    <div class="container" style="margin:30px auto">
-        <h1 style="margin-bottom: 10px;">WHICH DIET IS RIGHT FOR ME?</h1>
-        <p>
-            Lorem ipsum dolor sit amet, ut nam quis illud, ne modus dolore abhorreant eam, elitr exerci adversarium his ea. Nec nusquam deserunt ne, aliquip voluptatum interesset duo eu, id enim animal has. Eu vim habemus officiis, ad pro vero habeo. Sonet soluta voluptaria vis te.
-        </p>
+    <div class="container" id= "header" style="margin:8px auto">
+        <div id="top-left">
+            <img id="diet_img" src="pic/diet_blue.png" alt="diet">
+        </div>
+        <div id="top-right">
+            <h1 id="title" style="margin-bottom: 10px;">WHICH DIET IS RIGHT FOR ME?</h1>
+            <p id="introduction">
+                Lorem ipsum dolor sit amet, ut nam quis illud, ne modus dolore abhorreant eam, elitr exerci adversarium his ea. Nec nusquam deserunt ne, aliquip voluptatum interesset duo eu, id enim animal has. Eu vim habemus officiis, ad pro vero habeo. Sonet soluta voluptaria vis te.
+            </p>
+        </div>
+        
     </div>
-
-    <div class="container" style="margin-bottom:30px">
-        <h1>Know your food</h1>
+    
+    <div class = "card" style="margin:8px auto">
+        <div class="container" style="margin-bottom:30px">
+        <h1 class="subtitle">Know your food</h1>
+        <hr>
         <div class="filter-area">
             <!-- Nutrients box -->
             <div class="chartCategory nutrients">
@@ -115,27 +123,31 @@
         </div>
     </div>
 
-    <div class="container" style="margin-bottom:30px">
-        <h1><b>259</b> of 1000 dishes</h1>
+        <div class="container" style="margin-bottom:10px">
+        <h1 id="graph-title"><b>259</b> of 1000 dishes</h1>
         <div class="dist-area">
-            <div class="chartContainer">
+            <div class="chartContainer" id="graph-left">
                 <div id="chart-food-cluster" class="chart small"></div>
             </div>
-            <div class="search-area" style="float:left">
-                <div class="search-box" style="height: 400px;" >
-                    <div style="padding: 10px;">
-                        <input type="text" placeholder="Find your favorite" style="margin-bottom: 15px;">
+            <div class="search-area" id="graph-right">
+                <div class="search-box">
+                    <div id="search-bar">
+                        <input id="search-bar-input" type="text" placeholder="  Find your favorite">
                     </div>
-                    <ul id="food-list" style="height: 300px;overflow-y: scroll;overflow-x: hidden;"></ul>
+                    <ul id="food-list"></ul>
                     
                 </div>
             </div>
             <div style="clear:both"></div>
         </div>
+    </div>   
     </div>
 
-    <div class="container" style="margin-bottom:30px">
-        <h1>Design your diet </h1>
+    
+
+    <div class="container card" style="margin-bottom:30px">
+        <h1 class="subtitle">Design your diet </h1>
+        <hr>
         <div class="detail-area" style="margin-top:15px">
             <div class="chartContainer" style="float: left;">
                 <div id="chart-calories" class="chart small"></div>
@@ -146,7 +158,7 @@
                     <ul></ul>
                 </div>
                 <div id="chart-nutrients-detail" class="chart small">
-                    
+
                 </div>
             </div>
             <div style="clear:both"></div>
@@ -165,6 +177,7 @@
 
     <script type="text/javascript" src="PieChart.js"></script>
     <script type="text/javascript" src="TernaryPlot.js"></script>
+    <script type="text/javascript" src="ScaleChart.js"></script>
 
     <script type="text/javascript" src="ExplorerApp.js"></script>
     <script type="text/javascript" src="DesignApp.js"></script>
