@@ -17,5 +17,3 @@ ExplorerApp.prototype.visualize = function(data) {
     })
     
 }
-
-var explorerApp = new ExplorerApp();

@@ -31,5 +31,3 @@ DesignApp.prototype.visualize = function(data) {
         $("#food-tag-list > ul").append(d);
     })
 }
-
-var designApp = new DesignApp();

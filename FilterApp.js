@@ -7,20 +7,12 @@ function FilterApp() {
     
     vm.getAllergicChart = function(data) {
         keys = {
-            allergy_eggs_milk: "Eggs & Milk",
+            allergy_eggs_milk: "Milk",
             allergy_treenuts: "Treenuts",
             allergy_fish_shellfish: "Fish & Shellfish",
             allergy_wheat: "Wheat",
             allergy_soy_peanuts: "Peanuts & Soy",
         };
-    
-        labelOffsets = [
-            -86*0.5,
-            -63*0.5,
-            -112*0.5,
-            -46*0.5,
-            -105*0.5,
-        ]
 
         pos = [
             {x: 1.25*0.25, y: 0.25},
@@ -30,11 +22,12 @@ function FilterApp() {
             {x: 1.25*0.25, y: 3.25*0.25},
         ]
 
-        return (new BubbleChart("#chart-allergic", data, {
+        return (new BubbleChart("#chart-allergic", data, "allergic", {
             keys,
             pos,
-            offset: labelOffsets,
             height: 450,
+            default_status: false,
+            margin_top: 45,
         }))
     }
 
@@ -51,19 +44,6 @@ function FilterApp() {
             
         };
 
-       
-    
-        labelOffsets = [
-            -70*0.5,
-            -34*0.5,
-            -38*0.5,
-            -59*0.5,
-            -41*0.5,
-            -35*0.5,
-            -60*0.5,
-            -35*0.5,
-        ]
-
         pos = [
             {x: 1.25*0.25, y: 0.2},
             {x: 2.75*0.25, y: 0.2},
@@ -75,15 +55,18 @@ function FilterApp() {
             {x: 2.75*0.25, y: 4.375*0.2},
         ]
 
-        return (new BubbleChart("#chart-preference", data, {
+        return (new BubbleChart("#chart-preference", data, "preference", {
             keys,
             pos,
-            offset: labelOffsets,
             height: 450,
+            default_status: true,
+            margin_top: 45,
         }))
     }
 }
 
+var _vitamins = {};
+var _vitamins = {};
 FilterApp.prototype = Object.create(App.prototype)
 FilterApp.prototype.visualize = function(data) {
     var data = this.preprocessing(data)
@@ -98,6 +81,3 @@ FilterApp.prototype.visualize = function(data) {
         vitamins: new RadarChart("#chart-vitamins", data),
     };
 }
-
-
-var filterApp = new FilterApp();

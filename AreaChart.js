@@ -21,26 +21,28 @@ var AreaChart = function(domSelection, data, key) {
         .on('mousemove', _mousemove)
         .append("g")
     
-    _nutrient = data.map((d)=>d[key]);
-    _min = _.min(_nutrient) 
-    _max = _.max(_nutrient)
+    var _nutrient = data.map((d)=>d[key]);
+    var _min = _.min(_nutrient) 
+    var _max = _.max(_nutrient)
 
-    _groupBy = _.groupBy(_nutrient, Math.round);
+    var _groupBy = _.groupBy(_nutrient, Math.round);
 
     //TODO: I ignores 0'
-    _dist = _.range(1, _max).map((i) => {
+    var _dist = _.range(1, _max).map((i) => {
         if (_.has(_groupBy, i)) {
             return _groupBy[i].length;
         }
         return 0;
     });
 
+    var _filter_interval = null;
+
     
-    _y = d3.scaleLinear()
+    var _y = d3.scaleLinear()
     .domain([0, _.max(_dist)]).nice()
     .range([height, 0])
 
-    _x = d3.scaleLinear()
+    var _x = d3.scaleLinear()
     .domain([0, _max]).nice()
     .range([0, width])
 
@@ -77,14 +79,18 @@ var AreaChart = function(domSelection, data, key) {
         .attr("width", 0)
         .attr("height", height)
 
+        _filter_interval = null;
         d3.select(this).raise().classed("active", true);
     }
     
     function _dragged(d) {
         var mouse = d3.mouse(this);
-        var x = _x.invert(mouse[0]);
+        var xend = _x.invert(mouse[0]);
 
         var mousestart = +vm.filter.attr("mousestart");
+        var xstart = _x.invert(+mousestart);
+        _filter_interval = {start:xstart, end:xend};
+
         if (mouse[0]-mousestart > 0) {
             vm.filter
             .attr("width", mouse[0]-mousestart)
@@ -99,6 +105,10 @@ var AreaChart = function(domSelection, data, key) {
     }
     
     function _dragended(d) {
+        
+        var o = {}
+        o[key] = _filter_interval;
+        PubSub.publish('filter-data', o);
         d3.select(this).raise().classed("active", false);
     }
 

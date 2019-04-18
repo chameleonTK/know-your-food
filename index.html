@@ -39,13 +39,24 @@
             Lorem ipsum dolor sit amet, ut nam quis illud, ne modus dolore abhorreant eam, elitr exerci adversarium his ea. Nec nusquam deserunt ne, aliquip voluptatum interesset duo eu, id enim animal has. Eu vim habemus officiis, ad pro vero habeo. Sonet soluta voluptaria vis te.
         </p>
     </div>
-    <div class="container age" style="margin-bottom:30px">
-        <h1 style="margin-bottom: 20px;">Your Age</h1>
-        <div>
-            <button>Baby</button>
-            <button>Teenager</button>
-            <button>Elder</button>
+    <div class="container personal-info" style="margin-bottom:30px">
+        <div style="float: left;margin-right: 70px;">
+            <h1 style="margin-bottom: 20px;">Your Age</h1>
+            <div>
+                <!-- <button>Baby</button> -->
+                <button class="btn-age active" id="btn-teenager">Teenager</button>
+                <button class="btn-age" id="btn-elder">Elder</button>
+            </div>
         </div>
+        <div style="float: left;">
+            <h1 style="margin-bottom: 20px;">Your Gender</h1>
+            <div>
+                <!-- <button>Baby</button> -->
+                <button class="btn-sex active" id="btn-male">Male</button>
+                <button class="btn-sex" id="btn-female">Female</button>
+            </div>
+        </div>
+        <div style="clear:both"></div>
     </div>
     
     <div class="container" style="margin-bottom:30px">
@@ -178,40 +189,73 @@
 
     <script type="text/javascript" src="ExplorerApp.js"></script>
     <script type="text/javascript" src="DesignApp.js"></script>
+    <script type="text/javascript" src="IntakeData.js"></script>
 
     <script type="text/javascript">
-        var options = {}
+        $(function() {
+            var options = {}
+            var rniKey = {
+                gender: "male",
+                age: "teenager",
+                key: "teenager_male"
+            }
 
-        d3.selection.prototype.moveToFront = function () {
-            return this.each(function () {
-                this.parentNode.appendChild(this);
-            });
-        };
+            var explorerApp = new ExplorerApp();
+            var filterApp = new FilterApp();
+            var designApp = new DesignApp();
+            
+            $(".btn-age").click(function() {
+                var key = $(this).attr("id");
+                rniKey.age = key.replace("btn-", "");
+                rniKey.key = rniKey.age+"_"+rniKey.gender
 
-        d3.selection.prototype.moveToBack = function () {
-            return this.each(function () {
-                var firstChild = this.parentNode.firstChild;
-                if (firstChild) {
-                    this.parentNode.insertBefore(this, firstChild);
-                }
+                $(".btn-age").removeClass("active");
+                $(this).addClass("active");
+                PubSub.publish('change-rni', rniKey)
             });
-        };
-        
-        d3.csv('small_sample.csv').then(function (data) {
-            var filterdSubscriber = function (msg, data) {
-                console.log(msg, data );
+
+            $(".btn-sex").click(function() {
+                var key = $(this).attr("id");
+                rniKey.gender = key.replace("btn-", "");
+                rniKey.key = rniKey.age+"_"+rniKey.gender
+
+                $(".btn-sex").removeClass("active");
+                $(this).addClass("active");
+                PubSub.publish('change-rni', rniKey)
+            });
+
+            d3.selection.prototype.moveToFront = function () {
+                return this.each(function () {
+                    this.parentNode.appendChild(this);
+                });
             };
 
-        
-            filterApp.visualize(data, {
-                filterSubscriber: filterdSubscriber
+            d3.selection.prototype.moveToBack = function () {
+                return this.each(function () {
+                    var firstChild = this.parentNode.firstChild;
+                    if (firstChild) {
+                        this.parentNode.insertBefore(this, firstChild);
+                    }
+                });
+            };
+            
+            var _filter = {}
+            PubSub.subscribe('filter-data', function(msg, data) {
+                for(k in data) {
+                    if (data[k] != null) {
+                        _filter[k] = data[k]
+                    }
+                }
+
+                console.log("filter", _filter)
             });
 
-            explorerApp.visualize(data, {
-                filterSubscriber: filterdSubscriber
+            d3.csv('small_sample.csv').then(function (data) {
+                filterApp.visualize(data, {});
+                explorerApp.visualize(data, {});
+                designApp.visualize(data, options);
             });
-            designApp.visualize(data, options);
-        });
+        })
     </script>
 </body>
 

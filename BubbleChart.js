@@ -1,12 +1,11 @@
-var BubbleChart = function(domSelection, data, options) {
+var BubbleChart = function(domSelection, data, key, options) {
     var vm = this;
     var height = options.height;
     var width = 295;
-    var marginTop = 30;
+    var marginTop = options.margin_top || 30;
 
     var keys = options.keys;
     var _pos = options.pos
-    var _offset = options.offset;
 
     this.svg = d3.select(domSelection)
         .append("svg")
@@ -14,64 +13,102 @@ var BubbleChart = function(domSelection, data, options) {
         .attr("height", height)
         .append("g")
 
-    _allergy = _.map(keys, (label, name) => {
-        var count = _.countBy(data, (d) => d._raw[name]=="True")
-
-        // console.log(name, count["true"])
+    var _data = _.map(keys, (label, name) => {
+        var count = _.countBy(data, (d) => d[name]=="True")
         if (count["true"] === undefined) {
             count["true"] = 0;
         }
 
+        // console.log(name, count["true"])
         return {
             name,
             count,
             label,
+            selected: options.default_status,
         }
     })
 
-    _x = d3.scaleLinear()
+    var _x = d3.scaleLinear()
     .domain([0, data.length]).nice()
     .range([2, 45])
 
     
 
-    _ele = this.svg.selectAll("circle")
-    .data(_allergy)
+    var _ele = this.svg.selectAll("circle")
+    .data(_data)
     .enter()
     .append("g")
     .attr("transform", (d, i) => "translate("+(_pos[i].x*width)+","+(_pos[i].y*height - marginTop)+")")
     .on("mouseover", _mouseover)					
     .on("mouseout", _mouseout)
+    .on("click", _click)
     
     _ele.append("circle")
     .attr('r', (d) => _x(d.count["true"]))
 
-    _hover = _ele.append("circle")
+    var _hover = _ele.append("circle")
     .attr('r', (d) => _x(d.count["true"])+5)
     .attr("class", "hover-cir")
-    .style('display', "none")
+    .style('display', (d) => d.selected?null:"none")
+    .style("pointer-events", "visibleStroke") //credit: https://stackoverflow.com/questions/30951242/d3-mousout-event-precedes-click
 
 
     _ele
     .append("text")
-    .attr("dy", (d) => 55)
-    .attr("dx", (d, i) => _offset[i])
+    .attr("dy", (d) => 50)
+    .attr("dx", (d, i) => 0)
+    .style("text-anchor", "middle")
     .text(d => d.label)
 
 
-    this.svg
+    var _textPerc = this.svg
     .append("text")
-    .attr("dx", width-70)
+    .attr("dx", width-25)
     .attr("dy", height-20)
-    .text("30%")
+    .text(getPercentage()+"%")
     .style("font-size", "28px")
     .style("fill", "rgb(137, 223, 196)")
+    .style("text-anchor", "end")
 
+    function getPercentage() {
+        _filteredData = data;
+        // console.log("init", _filteredData.length)
+        _.forEach(_data, (ft) => {
+            if (ft.selected != options.default_status) {
+                // console.log("filter", _filteredData.length)
+                _filteredData = _filteredData.filter((d) => {
+                    return (d[ft.name]=="True") == false;
+                })
+                
+            }
+            
+        })
+
+        return Math.round(_filteredData.length*100.0 / data.length);
+    }
+
+    var isclicking = false;
     function _mouseover(d) {
-        d3.select(this).select(".hover-cir").style('display', null)
+        if (!d.selected && !isclicking) {
+            d3.select(this).select(".hover-cir").style('display', null)
+        }
     }
 
     function _mouseout(d) {
-        d3.select(this).select(".hover-cir").style('display', "none")
+        isclicking = false;
+        if (!d.selected) {
+            d3.select(this).select(".hover-cir").style('display', "none")
+        }
+    }
+
+    function _click(d) {
+        d.selected = !d.selected;
+        d3.select(this).select(".hover-cir").style('display', d.selected?null:"none")
+        isclicking = true;
+
+        var o = {}
+        o[key] = _data;
+        PubSub.publish('filter-data', o);
+        _textPerc.text(getPercentage()+"%")
     }
 }
