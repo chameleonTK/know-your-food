@@ -63,6 +63,7 @@ h1{
     display: inline-block;
     background-color: #00ffe433;
     margin-left: 7.5px;
+    margin-bottom: 7.5px;
 }
 
 #food-tag-list li > span {

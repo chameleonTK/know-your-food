@@ -90,7 +90,7 @@ var TernaryPlot = function (domSelection, data, options) {
     var cc = clickcancel(vm);
     _init(data);
     function _init(data) {
-        vm._data = _.slice(data, 0, 200).map((d) => {
+        vm._data = data.map((d) => {
             sum = d.protein + d.carbohydrate + d.fat;
             if (sum == 0) {
                 return { coord: null };
@@ -102,7 +102,8 @@ var TernaryPlot = function (domSelection, data, options) {
                 fat: d.fat * 100.0 / sum,
                 coord: coord([d.protein * 100.0 / sum, d.carbohydrate * 100.0 / sum, d.fat * 100.0 / sum]),
                 serving_size: d.serving_size,
-                name: d.name
+                name: d.name,
+                raw: d,
             };
 
             _.forEach(nutritients, (n) => {
@@ -230,7 +231,7 @@ var TernaryPlot = function (domSelection, data, options) {
 
     function _dblclick(d) {
         d.detail = !d.detail;
-        PubSub.publish('open-detail', d);
+        PubSub.publish('open-detail', d.raw);
 
         var hash = "#design-area";
         $('html, body').animate({

@@ -161,7 +161,7 @@
                 <div id="chart-proportion" class="chart small"></div>
             </div>
             <div class="chartContainer" style="float: left;padding-top: 20px;padding-left: 50px;">
-                <div id="food-tag-list" class="chart small">
+                <div id="food-tag-list" class="chart small" style="width: 900px;">
                     <ul></ul>
                 </div>
                 <div id="chart-nutrients-detail" class="chart small">
@@ -192,6 +192,28 @@
     <script type="text/javascript" src="IntakeData.js"></script>
 
     <script type="text/javascript">
+        var conf = {
+            color: {
+                protein: "red",
+                carbohydrate: "blue",
+                fat: "green",
+                fiber: "red",
+                vitamin_A: "red",
+                vitamin_B6: "red",
+                vitamin_B12: "red",
+                vitamin_C: "red",
+                vitamin_D: "red",
+                calcium: "red",
+                iron: "red",
+                zinc: "red",
+                phosphorus: "red",
+                magnesium: "red",
+                potassium: "red",
+                sodium: "red",
+                // chloride: "red",
+                iodine: "red",
+            }
+        }
         $(function() {
             var rniKey = {
                 gender: "male",
