@@ -22,8 +22,6 @@ var PieChart = function(domSelection, data, options) {
             });
 
         var _pieData = _pie(d3.entries(newdata));
-        
-        console.log(_pieData)
         //shape helper to build arcs
         var _arc = d3.arc()
             .innerRadius(_innerRadius)
