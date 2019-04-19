@@ -45,14 +45,24 @@
         </div>
         
     </div>
-    
-    <div class="container age" style="margin-bottom:30px">
-        <h1 style="margin-bottom: 20px;">Select Your Age</h1>
-        <div>
-            <button>Baby</button>
-            <button>Teenager</button>
-            <button>Elder</button>
+    <div class="container personal-info" style="margin-bottom:30px">
+        <div style="float: left;margin-right: 70px;">
+            <h1 style="margin-bottom: 20px;">Your Age</h1>
+            <div>
+                <!-- <button>Baby</button> -->
+                <button class="btn-age active" id="btn-teenager">Teenager</button>
+                <button class="btn-age" id="btn-elder">Elder</button>
+            </div>
         </div>
+        <div style="float: left;">
+            <h1 style="margin-bottom: 20px;">Your Gender</h1>
+            <div>
+                <!-- <button>Baby</button> -->
+                <button class="btn-sex active" id="btn-male">Male</button>
+                <button class="btn-sex" id="btn-female">Female</button>
+            </div>
+        </div>
+        <div style="clear:both"></div>
     </div>
 
     <div class = "card" style="margin:8px auto">
@@ -133,8 +143,8 @@
         </div>
     </div>
 
-        <div class="container" style="margin-bottom:10px">
-        <h1 id="graph-title"><b>259</b> of 1000 dishes</h1>
+    <div class="container" style="margin-bottom:30px">
+        <h1 id="graph-title"><b id="no-filtered">259</b> of <span id="no-all">1000</span> dishes</h1>
         <div class="dist-area">
             <div class="chartContainer" id="graph-left">
                 <div id="chart-food-cluster" class="chart small"></div>
@@ -155,7 +165,7 @@
 
     
 
-    <div class="container card" style="margin-bottom:30px">
+    <div class="container card" style="margin-bottom:30px" id="design-area">
         <h1 class="subtitle">Design your diet </h1>
         <hr>
         <div class="detail-area" style="margin-top:15px">
@@ -164,7 +174,7 @@
                 <div id="chart-proportion" class="chart small"></div>
             </div>
             <div class="chartContainer" style="float: left;padding-top: 20px;padding-left: 50px;">
-                <div id="food-tag-list" class="chart small">
+                <div id="food-tag-list" class="chart small" style="width: 900px;">
                     <ul></ul>
                 </div>
                 <div id="chart-nutrients-detail" class="chart small">
@@ -192,43 +202,146 @@
 
     <script type="text/javascript" src="ExplorerApp.js"></script>
     <script type="text/javascript" src="DesignApp.js"></script>
+    <script type="text/javascript" src="IntakeData.js"></script>
 
     <script type="text/javascript">
-        var options = {}
+        var conf = {
+            color: {
+                protein: "red",
+                carbohydrate: "blue",
+                fat: "green",
+                fiber: "red",
+                vitamin_A: "red",
+                vitamin_B6: "red",
+                vitamin_B12: "red",
+                vitamin_C: "red",
+                vitamin_D: "red",
+                calcium: "red",
+                iron: "red",
+                zinc: "red",
+                phosphorus: "red",
+                magnesium: "red",
+                potassium: "red",
+                sodium: "red",
+                // chloride: "red",
+                iodine: "red",
+            }
+        }
+        $(function() {
+            var rniKey = {
+                gender: "male",
+                age: "teenager",
+                key: "teenager_male"
+            }
 
-        d3.selection.prototype.moveToFront = function () {
-            return this.each(function () {
-                this.parentNode.appendChild(this);
+            var app = new App();
+            var filterApp = new FilterApp();
+            var explorerApp = new ExplorerApp();
+            var designApp = new DesignApp();
+            
+            $(".btn-age").click(function() {
+                var key = $(this).attr("id");
+                rniKey.age = key.replace("btn-", "");
+                rniKey.key = rniKey.age+"_"+rniKey.gender
+
+                $(".btn-age").removeClass("active");
+                $(this).addClass("active");
+                PubSub.publish('change-rni', rniKey)
             });
-        };
 
-        d3.selection.prototype.moveToBack = function () {
-            return this.each(function () {
-                var firstChild = this.parentNode.firstChild;
-                if (firstChild) {
-                    this.parentNode.insertBefore(this, firstChild);
+            $(".btn-sex").click(function() {
+                var key = $(this).attr("id");
+                rniKey.gender = key.replace("btn-", "");
+                rniKey.key = rniKey.age+"_"+rniKey.gender
+
+                $(".btn-sex").removeClass("active");
+                $(this).addClass("active");
+                PubSub.publish('change-rni', rniKey)
+            });
+
+            d3.selection.prototype.moveToFront = function () {
+                return this.each(function () {
+                    this.parentNode.appendChild(this);
+                });
+            };
+
+            d3.selection.prototype.moveToBack = function () {
+                return this.each(function () {
+                    var firstChild = this.parentNode.firstChild;
+                    if (firstChild) {
+                        this.parentNode.insertBefore(this, firstChild);
+                    }
+                });
+            };
+            
+            var _filter = {}
+            var _data = [];
+            PubSub.subscribe('filter-data', function(msg, filterval) {
+                var _filtered_data = _data;
+                for(k in filterval) {
+                    if (filterval[k] != null) {
+                        _filter[k] = filterval[k];
+                    } else {
+                        _filter[k] = null;
+                    }
                 }
+
+                console.log(_filter)
+
+                var areafilters = ["protein", "carbohydrate", "fat", "fiber"];
+                _.forEach(areafilters, (k) => {
+                    // console.log(_filtered_data.length)
+                    if (_filter[k] != null) {
+                        var min = _.min([_filter[k].start, _filter[k].end])*1000
+                        var max = _.max([_filter[k].start, _filter[k].end])*1000
+                        _filtered_data = _filtered_data.filter((d) => {
+                            return (d[k] >= min) && (d[k] <= max);
+                        })
+                        // console.log(_filtered_data.length)
+                    }
+                })
+                
+                var bubblefilters = ["allergic", "preference"];
+                _.forEach(bubblefilters, (k) => {
+                    var default_status = false;
+                    if (k=="preference") {
+                        default_status = true;
+                    }
+
+                    _.forEach(_filter[k], (ft) => {
+                        if (ft.selected != default_status) {
+                            _filtered_data = _filtered_data.filter((d) => {
+                                return (d[ft.name]=="True") == false;
+                            })
+                        }
+                    })    
+                })
+
+                var radarfilters = ["minerals", "vitamins"];
+                _.forEach(radarfilters, (k) => {
+                    _.forEach(_filter[k], (ft) => {
+                        _filtered_data = _filtered_data.filter((d) => {
+                            return d[ft.key] < ft.value;
+                        })
+                    })    
+                })
+
+                $("#no-filtered").html(_filtered_data.length)
+                PubSub.publish('filtered-data-ready', _filtered_data);
+                
             });
-        };
 
+            d3.csv('small_sample.csv').then(function (data) {    
+                $("#no-filtered").html(data.length)
+                $("#no-all").html(data.length)
 
-        var mySubscriber = function (msg, data) {
-            console.log( msg, data );
-        };
-
-        // add the function to the list of subscribers for a particular topic
-        // we're keeping the returned token, in order to be able to unsubscribe
-        // from the topic later on
-        var token = PubSub.subscribe('MY TOPIC', mySubscriber);
-
-        // publish a topic asynchronously
-        PubSub.publish('MY TOPIC', 'hello world!');
-        
-        d3.csv('small_sample.csv').then(function (data) {
-            filterApp.visualize(data, options);
-            explorerApp.visualize(data, options);
-            designApp.visualize(data, options);
-        });
+                _data = app.preprocessing(data);            
+                filterApp.visualize(_data, {rni: rniKey});
+                explorerApp.init(_data, {rni: rniKey});
+                explorerApp.visualize();
+                designApp.visualize(_data, {rni: rniKey});
+            });
+        })
     </script>
 </body>
 

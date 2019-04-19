@@ -11,65 +11,59 @@ var ScaleChart = function(domSelection, data, options) {
     var height = 550;
     var width = 900;
     var marginTop = 50;
-    
+    var _offsets = [0, 300, 600];
+    var _w = 200;
+    var _h = 50;
+
+    var _rni = options.rni;
+    var _intake_data = intake_data[_rni.key];
+
     this.svg = d3.select(domSelection)
         .append("svg")
         .attr("width", width)
         .attr("height", height)
         .append("g");
 
-    
-    // var pattern = this.svg.append("defs").append("pattern")
-    // pattern
-    // .attr("id", "hash4_4")
-    // .attr("width", "8")
-    // .attr("height", "8") 
-    // .attr("patternUnits", "userSpaceOnUse") 
-    // .attr("patternTransform", "rotate(60)")
-    // var rect = pattern.append("rect")
-    // rect
-    // .attr("width", "4")
-    // .attr("height", "8") 
-    // .attr("transform", "translate(0,0)") 
-    // .attr("fill", "#88AAEE")
-
     //TODO update this later
-    var limits = [
-        [{value: 150, name:"Protein"}, {value: 170, name:"Fat"}, {value: 500, name:"Carbohydrate"}, {value: 500, name:"Fiber"}],
-        [{value: 10, name:"Vitamin A"}, {value: 3, name:"Vitamin B6"}, {value: 3, name:"Vitamin B12"}, {value: 100, name:"Vitamin C"}, {value: 10, name:"Vitamin D"}, {value: 500, name:"Vitamin E"},],
-        [{value: 600, name:"Calcium"}, {value: 15, name:"Iron"}, {value: 25, name:"Zinc"}, {value: 700, name:"Phosphorus"}, {value: 310, name:"Manganese"}, {value: 500, name:"Potassium"}, {value: 500, name:"Sodium"}]
+    var columns = [
+        ["protein", "carbohydrate", "fat", "fiber"],
+        ["vitamin_A", "vitamin_B6", "vitamin_B12", "vitamin_C", "vitamin_D"],
+        ["calcium", "iron", "zinc", "phosphorus", "magnesium", "potassium", "sodium", "iodine"]
     ]
 
-    //TODO: bind actual values
-    function _format(d) {
-        r = _.map(limits, (lst) => {
-            return lst.map((d)=> _.random(0, d.value, true))
-        })
+    var names = [
+        ["Protein", "Fat", "Carbohydrate", "Fiber"],
+        ["Vitamin A", "Vitamin B6", "Vitamin B12", "Vitamin C", "Vitamin D", "Vitamin E"],
+        ["Calcium", "Iron", "Zinc", "Phosphorus", "Manganese", "Potassium", "Sodium", "Iodine"]
+    ]
 
-        return r;
-    }
+    var _scales = getScales(_intake_data);
+
+    PubSub.subscribe('change-rni', function (msg, new_rni) {
+        _rni = new_rni;
+        _intake_data = intake_data[_rni.key];
+        _scales = getScales(_intake_data);
+    });
+
 
     
-    _nutrients = _.map(data, _format)
-    _color = _.map(data, getRandomColor);
 
-    _offsets = [0, 300, 600];
-    _w = 200;
-    _h = 50;
-
-    _.forEach(limits, (lst, li) => {
-        var _ele = this.svg
+    _.forEach(columns, (lst, li) => {
+        var _col = this.svg
             .append("g")
             .attr("transform", "translate("+(_offsets[li])+","+0+")")
 
-        _.forEach(lst, (d, i)=> {
-            _subele = _ele.append("g").attr("transform", "translate("+(0)+","+(_h*i+marginTop)+")")
+        _.forEach(lst, (k, i)=> {
+            var _subele = _col
+            .append("g")
+            .attr("class", "subnutri-"+k)
+            .attr("transform", "translate("+(0)+","+(_h*i+marginTop)+")")
             
             _subele
                 .append("text")
                 .attr("dy", -5)
                 .attr("dx", 0)
-                .text(d.name)
+                .text(names[li][i])
 
             _subele.append("line")
                 .attr('x1', 0)
@@ -78,36 +72,54 @@ var ScaleChart = function(domSelection, data, options) {
                 .attr('y2', 0)
                 .attr("stroke", "gray")
                 .attr("stroke-width", "1px")
-
-            _x = d3.scaleLinear()
-                .domain([0, d.value]).nice()
-                .range([0, _w])
-
-            var acc = 0;
-            _.forEach(_nutrients, (n, ni) => {
-                var val = n[li][i];
-                
-
-                if (acc > d.value) {
-                    _subele.attr("class", "over")
-                    return
-                }
-
-                if (acc+val > d.value) {
-                    val = d.value - acc;
-                    _subele.attr("class", "over")
-                }
-                _subele.append("rect")
-                .attr('x', _x(acc))
-                .attr('y', 0)
-                .attr('width', _x(val))
-                .attr('height', 10)
-                .style("fill", _color[ni])
-
-                acc += val;
-            })
-            
-            
         })
     })
+
+
+    function getScales(itd) {
+        var o = {};
+        _.forEach(itd, (v, k) => {
+            o[k] = d3.scaleLinear()
+            .domain([0, v]).nice()
+            .range([0, _w])
+        })
+        
+        return o;
+    }
+
+    function draw(data) {
+        
+        _.forEach(columns, (lst, li) => {
+            _.forEach(lst, (k, i)=> {
+                var acc = 0;
+                var _subele = vm.svg.selectAll(".subnutri-"+k)
+                _subele.selectAll("rect").remove();
+                _subele.attr("class", "subnutri-"+k)
+                _.forEach(data, (n, ni) => {
+                    var val = n[k];
+
+                    if (acc > _intake_data[k]) {
+                        _subele.attr("class", "over subnutri-"+k)
+                        return
+                    }
+
+                    if (acc+val > _intake_data[k]) {
+                        val = _intake_data[k] - acc;
+                        _subele.attr("class", "over subnutri-"+k)
+                    }
+
+                    _subele.append("rect")
+                    .attr('x', _scales[k](acc))
+                    .attr('y', 0)
+                    .attr('width', _scales[k](val))
+                    .attr('height', 10)
+                    .style("fill", n.color)
+
+                    acc += val;
+                })      
+            })
+        })
+    }
+
+    vm.draw = draw;
 }

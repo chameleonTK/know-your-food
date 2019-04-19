@@ -65,6 +65,7 @@ h1{
     display: inline-block;
     background-color: #dae9f4;
     margin-left: 7.5px;
+    margin-bottom: 7.5px;
 }
 
 #food-tag-list li > span {
@@ -80,10 +81,27 @@ h1{
     fill: red !important;
 }
 
-.age button{
+.personal-info button{
     display: inline-block;
     margin-right: 10px;
     background-color: #00ffe433;
     border: #2bffeb 1px solid;
     color: #fff;
+}
+
+.personal-info button.active{
+    background-color: #04ceb8;
+}
+
+.radar-pt{
+    fill: #029585;
+    fill-opacity: 1;
+}
+
+.ter-circle{
+    cursor: pointer;
+}
+
+.ter-circle.selected circle{
+    fill-opacity: 1;
 }
