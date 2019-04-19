@@ -235,7 +235,8 @@ var TernaryPlot = function (domSelection, data, options) {
         PubSub.publish('open-detail', d.raw);
 
         var hash = "#design-area";
-        $('html, body').animate({
+        $("#design-area").show()
+        $('html').animate({
             scrollTop: $(hash).offset().top
         }, 800, function(){
             window.location.hash = hash;
