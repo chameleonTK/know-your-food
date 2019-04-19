@@ -135,7 +135,7 @@
     </div>
 
     <div class="container" style="margin-bottom:30px">
-        <h1><b>259</b> of 1000 dishes</h1>
+        <h1><b id="no-filtered">259</b> of <span id="no-all">1000</span> dishes</h1>
         <div class="dist-area">
             <div class="chartContainer">
                 <div id="chart-food-cluster" class="chart small"></div>
@@ -153,7 +153,7 @@
         </div>
     </div>
 
-    <div class="container" style="margin-bottom:30px">
+    <div class="container" style="margin-bottom:30px" id="design-area">
         <h1>Design your diet </h1>
         <div class="detail-area" style="margin-top:15px">
             <div class="chartContainer" style="float: left;">
@@ -291,15 +291,18 @@
                     })    
                 })
 
-                console.log(_filtered_data.length);
+                $("#no-filtered").html(_filtered_data.length)
                 PubSub.publish('filtered-data-ready', _filtered_data);
                 
             });
 
             d3.csv('small_sample.csv').then(function (data) {    
+                $("#no-filtered").html(data.length)
+                $("#no-all").html(data.length)
+
                 _data = app.preprocessing(data);            
                 filterApp.visualize(_data, {rni: rniKey});
-                explorerApp.init(_data);
+                explorerApp.init(_data, {rni: rniKey});
                 explorerApp.visualize();
                 designApp.visualize(_data, {});
             });

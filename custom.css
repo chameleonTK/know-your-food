@@ -94,3 +94,11 @@ h1{
     fill: #029585;
     fill-opacity: 1;
 }
+
+.ter-circle{
+    cursor: pointer;
+}
+
+.ter-circle.selected circle{
+    fill-opacity: 1;
+}

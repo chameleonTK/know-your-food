@@ -4,10 +4,10 @@ var ExplorerApp = function() {
 }
 
 ExplorerApp.prototype = Object.create(App.prototype)
-ExplorerApp.prototype.init = function(data) {
+ExplorerApp.prototype.init = function(data, options) {
     var vm = this;
     var largest =  _.maxBy(data, (d)=> d.serving_size);
-    this._chart = new TernaryPlot("#chart-food-cluster", data, {largest})
+    this._chart = new TernaryPlot("#chart-food-cluster", data, {largest, rni: options.rni})
     this._itemDOMs = {};
     
     _.forEach(data, (d, i) => {
