@@ -33,8 +33,10 @@ DesignApp.prototype.visualize = function(data, options) {
         });
     }
 
-    var caloriesChart = new PieChart("#chart-calories", _data, {innerRadius: 40, innerText:true})
+    var caloriesChart = new PieChart("#chart-calories", _data, {innerRadius: 40, innerText:true, opacity:0.5})
     var proportionChart = new PieChart("#chart-proportion", _data, {})
+
+    options["opacity"] = 0.9;
     var nutrientsChart = new ScaleChart("#chart-nutrients-detail", _data, options)
 
     PubSub.subscribe('open-detail', function(msg, newdata) {
@@ -53,7 +55,8 @@ DesignApp.prototype.visualize = function(data, options) {
         _dom.append(del)
         $("#food-tag-list > ul").append(_dom);
 
-        newdata.color = getRandomColor()
+        console.log(newdata)
+        // newdata.color = getRandomColor()
         newdata.id = id;
 
         console.log(id)

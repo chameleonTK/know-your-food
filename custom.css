@@ -13,6 +13,7 @@ h1{
 .filter-area .chartContainer{
     min-height: 96px;
     cursor: pointer;
+    /* background-color: white; */
 }
 
 .filter-area .nutrients .chartContainer{
@@ -104,4 +105,8 @@ h1{
 
 .ter-circle.selected circle{
     fill-opacity: 1;
+}
+
+.ternaryplot_circles{
+    stroke-opacity: 0.6;
 }

@@ -16,6 +16,18 @@ var TernaryPlot = function (domSelection, data, options) {
     // 	[width-marginLeft, height-marginTop], //b 
     //     [(width*0.5), 0+marginTop] 
     // ];
+    
+    var corners = [
+        [0 + marginLeft, 0 + marginTop],
+        [width - marginLeft, 0 + marginTop],
+        [(width * 0.5), height - marginTop],
+    ];
+
+    var colorCorners = [
+        hexToRgb(conf.color.protein),
+        hexToRgb(conf.color.carbohydrate),
+        hexToRgb(conf.color.fat),
+    ];
 
     var nutritients = [
         // "protein",
@@ -56,12 +68,6 @@ var TernaryPlot = function (domSelection, data, options) {
         iodine: "I",
     };
 
-    var corners = [
-        [0 + marginLeft, 0 + marginTop],
-        [width - marginLeft, 0 + marginTop],
-        [(width * 0.5), height - marginTop],
-    ];
-
     this.svg = d3.select(domSelection)
         .append("svg")
         .attr("width", width)
@@ -69,6 +75,15 @@ var TernaryPlot = function (domSelection, data, options) {
         .append("g")
 
 
+    //credit: https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
+    function hexToRgb(hex) {
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
+    }
 
     function coord(arr) {
         var a = arr[0], b = arr[1], c = arr[2];
@@ -96,6 +111,16 @@ var TernaryPlot = function (domSelection, data, options) {
                 return { coord: null };
             }
 
+            var colorR = parseInt(colorCorners[0].r*(d.protein/sum) + colorCorners[1].r*(d.carbohydrate/sum) + colorCorners[2].r*(d.fat/sum));
+            var colorG = parseInt(colorCorners[0].g*(d.protein/sum) + colorCorners[1].g*(d.carbohydrate/sum) + colorCorners[2].g*(d.fat/sum));
+            var colorB = parseInt(colorCorners[0].b*(d.protein/sum) + colorCorners[1].b*(d.carbohydrate/sum) + colorCorners[2].b*(d.fat/sum));
+
+            if (colorR > 225) colorR = 225;
+            if (colorG > 225) colorG = 225;
+            if (colorB > 225) colorB = 225;
+
+            d.color = "rgb("+colorR+","+colorG+","+colorB+")";
+
             var o = {
                 protein: d.protein * 100.0 / sum,
                 carbohydrate: d.carbohydrate * 100.0 / sum,
@@ -103,6 +128,7 @@ var TernaryPlot = function (domSelection, data, options) {
                 coord: coord([d.protein * 100.0 / sum, d.carbohydrate * 100.0 / sum, d.fat * 100.0 / sum]),
                 serving_size: d.serving_size,
                 name: d.name,
+                color: d.color,
                 raw: d,
             };
 
@@ -110,6 +136,7 @@ var TernaryPlot = function (domSelection, data, options) {
                 o[n] = d[n];
             })
 
+            
             return o;
 
         }).filter((d) => d.coord != null)
@@ -139,6 +166,7 @@ var TernaryPlot = function (domSelection, data, options) {
     
         vm._ele.append("circle")
             .attr("class", "ternaryplot_circles")
+            .style("fill", (d) => d.color)
             .attr('r', (d) => vm._scale(d.serving_size))
 
         vm._ele.append("text")
@@ -147,7 +175,7 @@ var TernaryPlot = function (domSelection, data, options) {
             .text((d) => _.capitalize(d.name))
             .style("font-size", "10px")
             .attr("class", "tootip")
-            .style("fill", "red")
+            .style("fill", "#343838")
             .style('display', "none")
             .style("pointer-events", "visibleStroke")
     }
@@ -200,7 +228,7 @@ var TernaryPlot = function (domSelection, data, options) {
                 .attr('y1', (n, i) => 0)
                 .attr('x2', (n, i) => _x[i](d[n]) * Math.cos(_phi + Math.PI * 2 * i / _nutri.length))
                 .attr('y2', (n, i) => _x[i](d[n]) * Math.sin(_phi + Math.PI * 2 * i / _nutri.length))
-                .attr('stroke', "#fff")
+                .attr('stroke', "#474747")
                 .attr('stroke-width', 2);
 
             _g.selectAll("circle")
@@ -210,6 +238,7 @@ var TernaryPlot = function (domSelection, data, options) {
                 .attr('r', (n, i) => 10)
                 .attr('cx', (n, i) => _x[i](d[n]) * Math.cos(_phi + Math.PI * 2 * i / _nutri.length))
                 .attr('cy', (n, i) => _x[i](d[n]) * Math.sin(_phi + Math.PI * 2 * i / _nutri.length))
+                .style("fill", (n, i) => conf.color[n])
 
             _g.selectAll("text")
                 .data(_nutri)
@@ -218,7 +247,7 @@ var TernaryPlot = function (domSelection, data, options) {
                 .attr('dx', (n, i) => _x[i](d[n]) * Math.cos(_phi + Math.PI * 2 * i / _nutri.length))
                 .attr('dy', (n, i) => _x[i](d[n]) * Math.sin(_phi + Math.PI * 2 * i / _nutri.length))
                 .text((n, i) => nutr_names[n])
-                .style("fill", "red")
+                .style("fill", "#343838")
 
         } else {
             _ready = true;

@@ -14,6 +14,7 @@ var PieChart = function(domSelection, data, options) {
     
 
     function draw(newdata, fn) {
+        console.log(newdata)
         var _radius = 80;
 
         var _pie = d3.pie()
@@ -22,20 +23,21 @@ var PieChart = function(domSelection, data, options) {
             });
 
         var _pieData = _pie(d3.entries(newdata));
-        //shape helper to build arcs
         var _arc = d3.arc()
             .innerRadius(_innerRadius)
             .outerRadius(_radius)
         
-        //build the pie chart
+        this.svg.selectAll(".pie-path").remove();
+        // console.log(this.svg.selectAll("g").selectAll("path"), this.svg.selectAll("g"))
         this.svg.selectAll("g")
             .data(_pieData)
             .enter()
             .append("path")
+            .attr("class", "pie-path")
             .attr("d", _arc)
             .attr("fill", (d, i) => {
                 return d.data.value.color
-            })
+            }).style("opacity", options.opacity)
         
         if (options.innerText) {
 
