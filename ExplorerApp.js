@@ -63,7 +63,6 @@ ExplorerApp.prototype.init = function(data, options) {
             });
         } else {
             var name = decode($(this).html());
-            console.log()
             $(this).addClass("selected");
             $("#search-bar-input").val(name); 
             PubSub.publish('filter-data', {
@@ -133,6 +132,8 @@ ExplorerApp.prototype.init = function(data, options) {
             });
         }
     }
+    
+
     
 }
 

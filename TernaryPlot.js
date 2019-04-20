@@ -224,11 +224,12 @@ var TernaryPlot = function (domSelection, data, options) {
                     return c.color.b*1.0/3;
                 })));
 
+                d.color = "rgb("+colorR+","+colorG+","+colorB+")";
                 return {
                     coord: [width/2, height/2],
                     serving_size: d.serving_size,
                     name: d.name,
-                    color: "rgb("+colorR+","+colorG+","+colorB+")",
+                    color: d.color,
                     raw: d,
                 };
             }

@@ -45,9 +45,6 @@ var ScaleChart = function(domSelection, data, options) {
         _scales = getScales(_intake_data);
     });
 
-
-    
-
     _.forEach(columns, (lst, li) => {
         var _col = this.svg
             .append("g")
@@ -72,6 +69,21 @@ var ScaleChart = function(domSelection, data, options) {
                 .attr('y2', 0)
                 .attr("stroke", "gray")
                 .attr("stroke-width", "1px")
+
+            
+            var s = _scales[k].domain()[1];
+            if (s > 1000) {
+                s = parseInt(s/1000)+"g";
+            } else {
+                s = parseInt(s)+"mg";
+            }
+
+             _subele
+                .append("text")
+                .attr("dy", -5)
+                .attr("dx", _w)
+                .style("text-anchor", "end")
+                .text(s)
         })
     })
 
@@ -88,7 +100,7 @@ var ScaleChart = function(domSelection, data, options) {
     }
 
     function draw(data) {
-        
+        // console.log(data)
         _.forEach(columns, (lst, li) => {
             _.forEach(lst, (k, i)=> {
                 var acc = 0;
