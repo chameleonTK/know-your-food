@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Which diet is right for me? :: CS5044 Information Visualisation</title>
-    
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="base.css" media="screen" rel="stylesheet" type="text/css">
     <link href="custom.css" media="screen" rel="stylesheet" type="text/css">
 
-    
+
 </head>
 
 <body>
@@ -33,17 +33,19 @@
     </div> -->
     <!-- /header -->
 
-    <div class="container" id= "header" style="margin:8px auto">
+    <div class="container" id="header" style="margin:8px auto">
         <div id="top-left">
             <img id="diet_img" src="pic/diet_blue.png" alt="diet">
         </div>
         <div id="top-right">
             <h1 id="title" style="margin-bottom: 10px;">WHICH DIET IS RIGHT FOR ME?</h1>
             <p id="introduction">
-                Lorem ipsum dolor sit amet, ut nam quis illud, ne modus dolore abhorreant eam, elitr exerci adversarium his ea. Nec nusquam deserunt ne, aliquip voluptatum interesset duo eu, id enim animal has. Eu vim habemus officiis, ad pro vero habeo. Sonet soluta voluptaria vis te.
+                Lorem ipsum dolor sit amet, ut nam quis illud, ne modus dolore abhorreant eam, elitr exerci adversarium
+                his ea. Nec nusquam deserunt ne, aliquip voluptatum interesset duo eu, id enim animal has. Eu vim
+                habemus officiis, ad pro vero habeo. Sonet soluta voluptaria vis te.
             </p>
         </div>
-        
+
     </div>
     <div class="container personal-info" style="margin-bottom:30px">
         <div style="float: left;margin-right: 70px;">
@@ -65,8 +67,8 @@
         <div style="clear:both"></div>
     </div>
 
-    
-        <div class="container">
+
+    <div class="container">
         <h1 class="subtitle">Know your food</h1>
         <h6 class="sub_intro">teae dagfdasgd adgaaewgaw adgasdasgd adgadsgdas</h6>
 
@@ -75,66 +77,66 @@
                 <!-- Nutrients box -->
                 <div class="chartCategory nutrients">
                     <h2>Nutrients</h2>
-    
+
                     <div class="chartContainer">
-    
+
                         <h3 class="dimension ">Protein</h3>
-    
+
                         <div id="chart-protein" class="chart small"></div>
                     </div>
-    
+
                     <div class="chartContainer">
-    
+
                         <h3 class="dimension ">Carbohydrates</h3>
-    
+
                         <div id="chart-carbohydrate" class="chart small"></div>
                     </div>
-    
+
                     <div class="chartContainer">
-    
+
                         <h3 class="dimension ">Fat</h3>
-    
+
                         <div id="chart-fat" class="chart small"></div>
                     </div>
-    
+
                     <div class="chartContainer">
-    
+
                         <h3 class="dimension ">Fiber</h3>
-    
+
                         <div id="chart-fiber" class="chart small"></div>
                     </div>
                 </div>
-    
+
                 <div class="chartCategory supplementary">
                     <h2>Supplementary</h2>
-    
+
                     <div class="chartContainer">
-    
+
                         <h3 class="dimension ">Minerals</h3>
-    
+
                         <div id="chart-mineralas" class="chart small"></div>
                     </div>
-    
+
                     <div class="chartContainer">
-    
+
                         <h3 class="dimension ">Vitamins</h3>
-    
+
                         <div id="chart-vitamins" class="chart small"></div>
                     </div>
                 </div>
-    
+
                 <div class="chartCategory allergic">
                     <h2>Allergic</h2>
-    
+
                     <div class="chartContainer">
                         <h3 class="dimension ">What I cannot eat</h3>
                         <div id="chart-allergic" class="chart small"></div>
                     </div>
                 </div>
-    
+
                 <div class="chartCategory preference">
                     <h2>Preference</h2>
-    
+
                     <div class="chartContainer">
                         <h3 class="dimension ">What I like</h3>
                         <div id="chart-preference" class="chart small"></div>
@@ -161,7 +163,6 @@
                     </div>
                     <div style="clear:both"></div>
                 </div>
-                
 
                 <div id="chart-food-cluster" class="chart small"></div>
             </div>
@@ -170,75 +171,48 @@
                     <div id="search-bar">
                         <input id="search-bar-input" type="text" placeholder="  Find your favorite">
                     </div>
-                    <div class="search-area" id="graph-right">
-                        <div class="search-box">
-                            <div id="search-bar">
-                                <input id="search-bar-input" type="text" placeholder="  search">
-                            </div>
-                            <ul id="food-list"></ul>
-                            
-                        </div>
-                    </div>
-                    <div style="clear:both"></div>
+                    <ul id="food-list"></ul>
+
                 </div>
             </div>
+            <div style="clear:both"></div>
         </div>
-         
+
     </div>
 
-      
-    
 
-    
+
+
+
 
     <div class="container" id="design-area">
         <h1 class="subtitle">Design your diet </h1>
         <h6 class="sub_intro">teae dagfdasgd adgaaewgaw adgasdasgd adgadsgdas</h6>
         <div class="yellow-card">
-            <div class="filter-area">
-                <div class="container personal-info">
-                    <div class="person-left">
-                        <h1 class="button-title">Your Age</h1>
-                        <div class="button-div">
-                            <!-- <button>Baby</button> -->
-                            <button class="btn-age active" id="btn-teenager">Teenager</button>
-                            <button class="btn-age" id="btn-elder">Elder</button>
-                        </div>
-                    </div>
-                    <div class="person-right">
-                        <h1 class="button-title">Your Gender</h1>
-                        <div class="button-div">
-                            <!-- <button>Baby</button> -->
-                            <button class="btn-sex active" id="btn-male">Male</button>
-                            <button class="btn-sex" id="btn-female">Female</button>
-                        </div>
-                    </div>
-                    <div style="clear:both"></div>
-                </div>
-            </div>
+ 
             <h1 id="chosen-list">chosen list</h1>
             <div class="detail-area">
                 <div id="food-tag-list" class="chart small">
                     <ul id="chosen-food"></ul>
                 </div>
-                    
-                <div id = "food-add">
+
+                <div id="food-add">
                     <div id="food-add-left" class="chartContainer">
                         <div id="chart-calories" class="chart small"></div>
                         <h1 style="margin-left: 60px; font-size: 11pt;">Calories</h1>
                         <div id="chart-proportion" class="chart small"></div>
                         <h1 style="margin-left: 65px; font-size: 11pt;">Energy</h1>
                     </div>
-                    
+
                     <div id="food-add-right" class="chartContainer">
                         <div id="chart-nutrients-detail" class="chart small"></div>
                     </div>
                 </div>
-                
+
                 <div style="clear:both"></div>
             </div>
         </div>
-        
+
     </div>
 
     <!-- imports -->
@@ -261,7 +235,7 @@
     <script type="text/javascript" src="IntakeData.js"></script>
 
     <script type="text/javascript">
-    
+
         var conf = {
             color: {
                 protein: "#e19d29",
@@ -284,7 +258,7 @@
                 iodine: "#1b5e20",
             }
         }
-        $(function() {
+        $(function () {
             var rniKey = {
                 gender: "male",
                 age: "teenager",
@@ -295,28 +269,28 @@
             var filterApp = new FilterApp();
             var explorerApp = new ExplorerApp();
             var designApp = new DesignApp();
-            
-            $(".btn-age").click(function() {
+
+            $(".btn-age").click(function () {
                 var key = $(this).attr("id");
                 rniKey.age = key.replace("btn-", "");
-                rniKey.key = rniKey.age+"_"+rniKey.gender
+                rniKey.key = rniKey.age + "_" + rniKey.gender
 
                 $(".btn-age").removeClass("active");
                 $(this).addClass("active");
                 PubSub.publish('change-rni', rniKey)
             });
 
-            $(".btn-sex").click(function() {
+            $(".btn-sex").click(function () {
                 var key = $(this).attr("id");
                 rniKey.gender = key.replace("btn-", "");
-                rniKey.key = rniKey.age+"_"+rniKey.gender
+                rniKey.key = rniKey.age + "_" + rniKey.gender
 
                 $(".btn-sex").removeClass("active");
                 $(this).addClass("active");
                 PubSub.publish('change-rni', rniKey)
             });
 
-            $(".btn-axis").click(function() {
+            $(".btn-axis").click(function () {
                 var key = $(this).attr("id");
                 var axis = key.replace("btn-", "");
 
@@ -339,12 +313,12 @@
                     }
                 });
             };
-            
+
             var _filter = {}
             var _data = [];
-            PubSub.subscribe('filter-data', function(msg, filterval) {
+            PubSub.subscribe('filter-data', function (msg, filterval) {
                 var _filtered_data = _data;
-                for(k in filterval) {
+                for (k in filterval) {
                     if (filterval[k] != null) {
                         _filter[k] = filterval[k];
                     } else {
@@ -358,29 +332,29 @@
                 _.forEach(areafilters, (k) => {
                     // console.log(_filtered_data.length)
                     if (_filter[k] != null) {
-                        var min = _.min([_filter[k].start, _filter[k].end])*1000
-                        var max = _.max([_filter[k].start, _filter[k].end])*1000
+                        var min = _.min([_filter[k].start, _filter[k].end]) * 1000
+                        var max = _.max([_filter[k].start, _filter[k].end]) * 1000
                         _filtered_data = _filtered_data.filter((d) => {
                             return (d[k] >= min) && (d[k] <= max);
                         })
                         // console.log(_filtered_data.length)
                     }
                 })
-                
+
                 var bubblefilters = ["allergic", "preference"];
                 _.forEach(bubblefilters, (k) => {
                     var default_status = false;
-                    if (k=="preference") {
+                    if (k == "preference") {
                         default_status = true;
                     }
 
                     _.forEach(_filter[k], (ft) => {
                         if (ft.selected != default_status) {
                             _filtered_data = _filtered_data.filter((d) => {
-                                return (d[ft.name]=="True") == false;
+                                return (d[ft.name] == "True") == false;
                             })
                         }
-                    })    
+                    })
                 })
 
                 var radarfilters = ["minerals", "vitamins"];
@@ -389,7 +363,7 @@
                         _filtered_data = _filtered_data.filter((d) => {
                             return d[ft.key] < ft.value;
                         })
-                    })    
+                    })
                 })
 
                 if (_filter["name"]) {
@@ -407,18 +381,18 @@
 
                 $("#no-filtered").html(_filtered_data.length)
                 PubSub.publish('filtered-data-ready', _filtered_data);
-                
+
             });
 
-            d3.csv('small_sample.csv').then(function (data) {    
+            d3.csv('small_sample.csv').then(function (data) {
                 $("#no-filtered").html(data.length)
                 $("#no-all").html(data.length)
 
-                _data = app.preprocessing(data);            
-                filterApp.visualize(_data, {rni: rniKey});
-                explorerApp.init(_data, {rni: rniKey});
+                _data = app.preprocessing(data);
+                filterApp.visualize(_data, { rni: rniKey });
+                explorerApp.init(_data, { rni: rniKey });
                 explorerApp.visualize();
-                designApp.visualize(_data, {rni: rniKey});
+                designApp.visualize(_data, { rni: rniKey });
             });
         })
     </script>
