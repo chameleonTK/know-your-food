@@ -12,10 +12,13 @@
     <link href="base.css" media="screen" rel="stylesheet" type="text/css">
     <link href="custom.css" media="screen" rel="stylesheet" type="text/css">
 
-
+    <link rel="stylesheet" href="loading.css">
 </head>
 
-<body style="margin-bottom:50px;">
+<body style="margin-bottom:50px;overflow: hidden;" >
+    <div class="visbackdrop" style="text-align: center;width:100%; height:100%;position: absolute;top: 0px;bottom: 0px;left: 0px;right: 0px;background-color: #000000a8;z-index: 1000;">
+            <div class="lds-ellipsis" style="top: 50%;"><div></div><div></div><div></div><div></div></div>
+    </div>
     <!-- svg pattern definitions -->
     <svg width="0" height="0">
         <defs>
@@ -388,7 +391,8 @@
             d3.csv('food.csv').then(function (data) {
                 $("#no-filtered").html(data.length)
                 $("#no-all").html(data.length)
-
+                $(".visbackdrop").hide();
+                $("body").css("overflow", "scroll");
                 var app = new App();
                 var filterApp = new FilterApp();
                 var explorerApp = new ExplorerApp();

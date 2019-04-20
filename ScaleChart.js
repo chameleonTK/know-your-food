@@ -32,7 +32,7 @@ var ScaleChart = function(domSelection, data, options) {
     ]
 
     var names = [
-        ["Protein", "Fat", "Carbohydrate", "Fiber"],
+        ["Protein", "Carbohydrate", "Fat", "Fiber"],
         ["Vitamin A", "Vitamin B6", "Vitamin B12", "Vitamin C", "Vitamin D", "Vitamin E"],
         ["Calcium", "Iron", "Zinc", "Phosphorus", "Manganese", "Potassium", "Sodium", "Iodine"]
     ]
@@ -100,7 +100,7 @@ var ScaleChart = function(domSelection, data, options) {
     }
 
     function draw(data) {
-        // console.log(data)
+        console.log(data)
         _.forEach(columns, (lst, li) => {
             _.forEach(lst, (k, i)=> {
                 var acc = 0;
@@ -110,6 +110,7 @@ var ScaleChart = function(domSelection, data, options) {
                 _.forEach(data, (n, ni) => {
                     var val = n[k];
 
+                    console.log(n, k, val)
                     if (acc > _intake_data[k]) {
                         _subele.attr("class", "over subnutri-"+k)
                         return

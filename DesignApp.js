@@ -115,7 +115,17 @@ DesignApp.prototype.visualize = function(data, options) {
             // dd.css("border", d.color+" 1px solid")
         })
 
-        caloriesChart.draw(getCalcories(_data), _.sum)
-        nutrientsChart.draw(_data)
+        if (_data.length == 0) {
+            caloriesChart.draw([{
+                value: 1,
+                name: "",
+                color: "#c5cf65"
+            }], () => 0)
+            nutrientsChart.draw([])
+        } else {
+            caloriesChart.draw(getCalcories(_data), _.sum)
+            proportionChart.draw(getProportion(_data))
+            nutrientsChart.draw(_data)
+        }
     });
 }
