@@ -93,8 +93,11 @@ DesignApp.prototype.visualize = function(data, options) {
         _data.forEach((d) => {
             d.color = _actual_data[d.name].color
             var dd = $("#"+d.id)
-            dd.css("background-color", d.color)
-            dd.css("border", d.color+" 1px solid")
+
+            dd.css("background-color", "#fffff2")
+            dd.css("border", d.color+" 2px solid")
+            // dd.css("background-color", d.color)
+            // dd.css("border", d.color+" 1px solid")
         })
 
         caloriesChart.draw(getCalcories(_data), _.sum)
