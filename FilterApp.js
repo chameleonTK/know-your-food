@@ -80,7 +80,7 @@ function FilterApp() {
             pos,
             height: 450,
             default_status: true,
-            margin_top: 45,
+            margin_top: 30,
         }))
     }
 }

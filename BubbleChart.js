@@ -37,7 +37,7 @@ var BubbleChart = function(domSelection, data, key, options) {
 
     var _x = d3.scaleLinear()
     .domain([0, data.length]).nice()
-    .range([2, 45])
+    .range([10, 60])
 
     var _image = d3.scaleLinear()
     .domain([0, data.length]).nice()

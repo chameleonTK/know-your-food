@@ -12,6 +12,11 @@ var PieChart = function(domSelection, data, options) {
         .append("g")
         .attr("transform", "translate("+(width/2)+", "+(height/2)+")");
     
+    draw([{
+        value: 1,
+        name: "",
+        color: "#c5cf65"
+    }], () => 0)
 
     function draw(newdata, fn) {
         var _radius = 80;
@@ -26,38 +31,39 @@ var PieChart = function(domSelection, data, options) {
             .innerRadius(_innerRadius)
             .outerRadius(_radius)
         
-        this.svg.selectAll(".pie-path").remove();
-        this.svg.selectAll(".arc-text-text").remove();
-        // console.log(this.svg.selectAll("g").selectAll("path"), this.svg.selectAll("g"))
-        this.svg.selectAll("g")
+        vm.svg.selectAll(".pie-path").remove();
+        vm.svg.selectAll(".arc-text-text").remove();
+        // console.log(vm.svg.selectAll("g").selectAll("path"), vm.svg.selectAll("g"))
+        vm.svg.selectAll("g")
             .data(_pieData)
             .enter()
             .append("path")
             .attr("class", "pie-path")
             .attr("d", _arc)
             .attr("fill", (d, i) => {
+                console.log(d)
                 return d.data.value.color
             }).style("opacity", options.opacity)
         
         
         if (options.innerText) {
 
-            this.svg.selectAll("text").remove();
+            vm.svg.selectAll("text").remove();
 
-            this.svg.append("text")
+            vm.svg.append("text")
             .style("text-anchor", "middle")
             .attr("class", "pie-text")
             .text(fn(newdata.map(d=>d.value)).toFixed(2))
             .style("font-size", "28px");
 
-            this.svg.append("text")
+            vm.svg.append("text")
             .style("text-anchor", "middle")
             .attr("dy", "1em")
             .text("kcal")
             .style("font-size", "18px");
         } else {
 
-            this.svg
+            vm.svg
             .selectAll(".arc-text-text")
             .data(_pieData)
             .enter()

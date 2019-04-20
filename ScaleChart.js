@@ -11,7 +11,7 @@ var ScaleChart = function(domSelection, data, options) {
     var height = 550;
     var width = 700;
     var marginTop = 50;
-    var _offsets = [0, 300, 600];
+    var _offsets = [0, 250, 500];
     var _w = 200;
     var _h = 50;
 
