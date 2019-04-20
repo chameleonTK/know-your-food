@@ -59,16 +59,16 @@ var BubbleChart = function(domSelection, data, key, options) {
     .attr("dy", (d) => 50)
     .attr("dx", (d, i) => 0)
     .style("text-anchor", "middle")
+    .style("font-size", "13px")
     .text(d => d.label)
 
 
     var _textPerc = this.svg
     .append("text")
-    .attr("dx", width-25)
-    .attr("dy", height-20)
+    .attr("class", "bubble-persent")
+    .attr("dx", width-30)
+    .attr("dy", height-8)
     .text(getPercentage()+"%")
-    .style("font-size", "28px")
-    .style("fill", "rgb(137, 223, 196)")
     .style("text-anchor", "end")
 
     function getPercentage() {

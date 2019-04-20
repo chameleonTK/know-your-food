@@ -9,6 +9,7 @@ var RadarChart = function(domSelection, data, rni, keys, chartkey) {
         .attr("width", width)
         .attr("height", height)
         .append("g")
+        .attr("class", "radar-padding")
 
     var _ele = this.svg
         .append("g")
@@ -42,7 +43,8 @@ var RadarChart = function(domSelection, data, rni, keys, chartkey) {
     .enter()
     .append("text")
     .attr("class", "radar-text")
-    .style("text-anchor", "middle")
+    .style("text-anchor", "middle") 
+    .style("font-size", "12px")
     .text((d,i) => keys[d])
     .attr('dx', (d, i) => 100*Math.cos(Math.PI*2*i/vm.nAxis))
     .attr('dy', (d, i) => 100*Math.sin(Math.PI*2*i/vm.nAxis))
@@ -82,8 +84,8 @@ var RadarChart = function(domSelection, data, rni, keys, chartkey) {
     .append("circle")
     .attr("class", "radar-pt")
     .attr('r', 0)
-    .attr("stroke", "gray")
-    .attr("stroke-width", "1px")
+    .attr("stroke", "#5c811a")
+    .attr("stroke-width", "0.5px")
     .call(d3.drag()
         .on("start", _dragstarted)
         .on("drag", _dragged)
@@ -106,8 +108,9 @@ var RadarChart = function(domSelection, data, rni, keys, chartkey) {
                 return [rx, ry].join(",");
             }).join(" ");
         })
-        .attr("stroke","#86cccc")
+        .attr("stroke","#5c811a")
         .attr("stroke-width",2)
+        .attr("stroke-opacity", "0.5")
         .attr("fill", "rgba(255, 255, 255, 0.8)");
 
         _cir.attr('cx', (d, i) => {

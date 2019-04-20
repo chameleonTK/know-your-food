@@ -167,6 +167,7 @@ var TernaryPlot = function (domSelection, data, options) {
         vm._ele.append("circle")
             .attr("class", "ternaryplot_circles")
             .style("fill", (d) => d.color)
+            .style("stroke", (d) => d.color)
             .attr('r', (d) => vm._scale(d.serving_size))
 
         vm._ele.append("text")

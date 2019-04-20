@@ -9,7 +9,7 @@ function getRandomColor() {
 var ScaleChart = function(domSelection, data, options) {
     var vm = this;
     var height = 550;
-    var width = 900;
+    var width = 700;
     var marginTop = 50;
     var _offsets = [0, 300, 600];
     var _w = 200;

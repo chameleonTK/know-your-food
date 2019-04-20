@@ -48,8 +48,10 @@ var AreaChart = function(domSelection, data, key) {
 
     this.svg.append("path")
     .datum(_dist)
-    .attr("fill", conf.color[key])
-    .attr("stroke", "#86cccc")
+    .attr("fill", "#ffffff")
+    .attr("fill-opacity", "0.9")
+    .attr("stroke", "#5c811a")
+    .attr("stroke-opacity", "0.7")
     .attr("stroke-width", 1.5)
     .attr("d", d3.area()
         .x((d, i) => _x(i))

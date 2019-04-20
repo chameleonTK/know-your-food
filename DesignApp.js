@@ -47,7 +47,7 @@ DesignApp.prototype.visualize = function(data, options) {
         
         var id = "food-obj-"+(_.random(0, 10000, false))+"-"+timestamp;
 
-        var _dom = $('<li>').attr("id", id).append($('<span>').html(_.capitalize(newdata.name)));
+        var _dom = $('<li>').attr("class", "chosen-li").attr("id", id).append($('<span>').html(_.capitalize(newdata.name)));
         var del = $('<i class="tiny material-icons dp48">close</i>').click(() => {
             PubSub.publish('del-detail', id);
         });

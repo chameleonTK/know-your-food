@@ -29,13 +29,15 @@ h1{
 }
 
 .search-area .search-box{
-    background-color: #fcf4d9;
-    border: #f7b733 2px solid;
-    border-radius: 10px;
+    background-color: #fefefe;
+    border: #c5cf65 2px solid;
+    border-radius: 5px;
     height: 500px;
     width: 250px;
     margin-top: 60px;
-    margin-left: 20px;
+    margin-left: 10px;
+    margin-right: 15px;
+    box-shadow: 2px 2px 7px 0px #5c811a
 }
 
 ::-webkit-scrollbar {
@@ -82,20 +84,90 @@ h1{
     fill: red !important;
 }
 
+.personal-info {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.person-left {
+    width: 50%;
+    float: left;
+    margin: 0 auto;
+}
+
+.person-right {
+    width: 50%;
+    float: right;
+    margin: 0 auto;
+}
+
+.button-title {
+    margin: 20px 0px 10px 0px;
+    text-align: center;
+    margin: 25px 10px 15px 10px;
+}
+
+.button-div {
+    width: 50%;
+    background-color: #c5cf65;
+    box-shadow: 2px 2px 2px 2px #cccccc;
+    margin: 10px 100px 20px 140px;
+    text-align: center;
+    padding: 15px;
+    border-radius: 5px;
+}
+
 .personal-info button{
     display: inline-block;
-    margin-right: 10px;
-    background-color: #00ffe433;
-    border: #2bffeb 1px solid;
-    color: #fff;
+    background-color: #fffff2;
+    border: #fffff2 1px solid;
+    color: #5c811a;
+    border-radius: 3px;
+    margin: 0px 20px;
 }
 
 .personal-info button.active{
-    background-color: #04ceb8;
+    background-color: #5c811a;
+    border: #5c811a 1px solid;
+    color: #fffff2;
+    margin: 0px;
+}
+
+#chosen-list {
+    font-size: 14pt;
+    margin: 50px 0px 20px 45px;
+}
+
+#chosen-food {
+    padding: 20px;
+}
+
+.chosen-li {
+    background-color: #fffff2;
+}
+
+#food-tag-list {
+    margin: 20px 50px 40px 50px;
+    background-color: #c5cf65;
+    box-shadow: 2px 2px 2px 2px #cccccc;
+    border-radius: 5px;
+}
+
+#food-add-left {
+    width: 30%;
+    float: left;
+    padding-left: 30px;
+    padding-top: 30px;
+}
+
+#food-add-right {
+    width: 70%;
+    float: right;
+    padding: 20px;
 }
 
 .radar-pt{
-    fill: #029585;
+    fill: #5c811a;
     fill-opacity: 1;
 }
 
@@ -110,3 +182,50 @@ h1{
 .ternaryplot_circles{
     stroke-opacity: 0.6;
 }
+
+.bubble-persent {
+    font-size: 25px;
+    fill: #245c00;
+}
+
+.yellow-card {
+    width: 1180px;
+    background-color: #fffff2;
+    box-shadow: 2px 2px 2px 2px #cccccc;
+    border-radius: 5px;
+}
+
+
+/* new new new new  */
+
+/* p {
+    color: #d84315;
+    color: #283593;
+    color: #fdd835;
+}
+
+p {
+    color: #e19d29;
+    color: #4298b5;
+    color: #dd5f32;
+}
+
+p {
+    color: #4fc3f7;
+    color: #1565c0;
+    color: #7f9eb2;
+    color: #008c9e;
+    color: #343838,
+}
+
+p {
+    color: #a8dba8;
+    color: #79bd9a;
+    color: #3b8686;
+    color: #aed581;
+    color: #8bc34a;
+    color: #689f38;
+    color: #388e3c;
+    color: #1b5e20;
+} */
+
