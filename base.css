@@ -303,7 +303,7 @@ button.reset:hover {
 /**/
 .subtitle {
     font-size: 18pt;
-    padding-top: 70px;
+    padding-top: 40px;
     text-align: center;
 }
 
@@ -311,7 +311,7 @@ button.reset:hover {
     font-size: 13pt;
     color: #a8b1b8;
     padding-top: 10px;
-    padding-bottom: 40px;
+    padding-bottom: 20px;
     text-align: center;
 }
 
