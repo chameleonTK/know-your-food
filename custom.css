@@ -82,7 +82,7 @@ h1{
     fill: red !important;
 }
 
-.personal-info button{
+.btn-group button{
     display: inline-block;
     margin-right: 10px;
     background-color: #00ffe433;
@@ -90,7 +90,7 @@ h1{
     color: #fff;
 }
 
-.personal-info button.active{
+.btn-group button.active{
     background-color: #04ceb8;
 }
 

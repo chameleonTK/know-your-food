@@ -3,6 +3,7 @@ var TernaryPlot = function (domSelection, data, options) {
     var height = 600;
     var width = 800;
     var _ready = true;
+    var offsetX = 100;
     var marginLeft = 80;
     var marginTop = 80;
 
@@ -11,32 +12,118 @@ var TernaryPlot = function (domSelection, data, options) {
 
     vm._scale = null;
     vm._largest = null;
-    // var corners = [
-    // 	[0+marginLeft, height-marginTop], // a
-    // 	[width-marginLeft, height-marginTop], //b 
-    //     [(width*0.5), 0+marginTop] 
-    // ];
+    
+    vm.data = data;
 
-    var corners = {
+    var corners = {}
+
+    //ref coordinate calculation: https://www.mathopenref.com/coordpolycalc.html
+    var calCorners = {
         "protein": {
-            coord: [0 + marginLeft, 0 + marginTop],
+            coord: [offsetX + 0 + marginLeft, 0 + marginTop],
             color: hexToRgb(conf.color.protein),
             name: "protein",
             text_anchor: "end",
         },
         "carbohydrate": {
-            coord:  [width - marginLeft, 0 + marginTop],
+            coord:  [offsetX + _.min([height, width]) - marginLeft, 0 + marginTop],
             color: hexToRgb(conf.color.carbohydrate),
             name: "carbohydrate",
             text_anchor: "start",
         },
         "fat": {
-            coord:  [(width * 0.5), height - marginTop], 
+            coord:  [offsetX + (_.min([height, width]) * 0.5), _.min([height, width]) - marginTop], 
             color: hexToRgb(conf.color.fat),
             name: "fat",
             text_anchor: "middle",
         },
     }
+
+    var vitCorners = {
+        "vitamin_A": {
+            coord:  [offsetX + 300, 50],
+            color: hexToRgb(conf.color.vitamin_A),
+            name: "vitamin_A",
+            text_anchor: "start",
+        },
+        "vitamin_B6": {
+            coord:  [offsetX + 62, 223],
+            color: hexToRgb(conf.color.vitamin_B6),
+            name: "vitamin_B6",
+            text_anchor: "start",
+        },
+        "vitamin_B12": {
+            coord:  [offsetX + 153, 502],
+            color: hexToRgb(conf.color.vitamin_B12),
+            name: "vitamin_B12",
+            text_anchor: "start",
+        },
+        "vitamin_C": {
+            coord:  [offsetX + 447, 502],
+            color: hexToRgb(conf.color.vitamin_C),
+            name: "vitamin_C",
+            text_anchor: "start",
+        },
+        "vitamin_D": {
+            coord:  [offsetX + 538, 223],
+            color: hexToRgb(conf.color.vitamin_D),
+            name: "vitamin_D",
+            text_anchor: "start",
+        }
+    }
+
+    var minCorners = {
+        "calcium": {
+            coord:  [offsetX + 396, 69],
+            color: hexToRgb(conf.color.calcium),
+            name: "calcium",
+            text_anchor: "start",
+        },
+        "iron": {
+            coord:  [offsetX + 204, 69],
+            color: hexToRgb(conf.color.iron),
+            name: "iron",
+            text_anchor: "start",
+        },
+        "zinc": {
+            coord:  [offsetX + 69, 204],
+            color: hexToRgb(conf.color.zinc),
+            name: "zinc",
+            text_anchor: "start",
+        },
+        "phosphorus": {
+            coord:  [offsetX + 69, 396],
+            color: hexToRgb(conf.color.phosphorus),
+            name: "phosphorus",
+            text_anchor: "start",
+        },
+        "magnesium": {
+            coord:  [offsetX + 204, 531],
+            color: hexToRgb(conf.color.magnesium),
+            name: "magnesium",
+            text_anchor: "start",
+        },
+        "potassium": {
+            coord:  [offsetX + 369, 531],
+            color: hexToRgb(conf.color.potassium),
+            name: "potassium",
+            text_anchor: "start",
+        },
+        "sodium": {
+            coord:  [offsetX + 531, 396],
+            color: hexToRgb(conf.color.sodium),
+            name: "sodium",
+            text_anchor: "start",
+        },
+        "iodine": {
+            coord:  [offsetX + 531, 204],
+            color: hexToRgb(conf.color.iodine),
+            name: "iodine",
+            text_anchor: "start",
+        },
+    }
+
+    corners = calCorners;
 
     var nutritients = [
         // "protein",
@@ -122,9 +209,28 @@ var TernaryPlot = function (domSelection, data, options) {
 
     function formatData(data) {
         return data.map((d) => {
-            sum = d.protein + d.carbohydrate + d.fat;
+            var sum = _.sum(_.map(corners, (c, k)=> {
+                return d[k];
+            }));
+
             if (sum == 0) {
-                return { coord: null };
+                var colorR = parseInt(_.sum(_.map(corners, (c, k)=> {
+                    return c.color.r*1.0/3;
+                })));
+                var colorG = parseInt(_.sum(_.map(corners, (c, k)=> {
+                    return c.color.g*1.0/3;
+                })));
+                var colorB = parseInt(_.sum(_.map(corners, (c, k)=> {
+                    return c.color.b*1.0/3;
+                })));
+
+                return {
+                    coord: [width/2, height/2],
+                    serving_size: d.serving_size,
+                    name: d.name,
+                    color: "rgb("+colorR+","+colorG+","+colorB+")",
+                    raw: d,
+                };
             }
 
             // corners
@@ -141,13 +247,9 @@ var TernaryPlot = function (domSelection, data, options) {
             if (colorR > 225) colorR = 225;
             if (colorG > 225) colorG = 225;
             if (colorB > 225) colorB = 225;
-
             d.color = "rgb("+colorR+","+colorG+","+colorB+")";
 
             var o = {
-                protein: d.protein * 100.0 / sum,
-                carbohydrate: d.carbohydrate * 100.0 / sum,
-                fat: d.fat * 100.0 / sum,
                 coord: coord(d),
                 serving_size: d.serving_size,
                 name: d.name,
@@ -383,6 +485,7 @@ var TernaryPlot = function (domSelection, data, options) {
 
     function draw(newdata) {
         vm.svg.selectAll(".ter-circle").remove();
+        vm.data = newdata;
         _init(newdata)
     }
 
@@ -392,6 +495,24 @@ var TernaryPlot = function (domSelection, data, options) {
     PubSub.subscribe('change-rni', function (msg, new_rni) {
         _rni = new_rni;
         _intake_data = intake_data[_rni.key];
+    });
+
+    PubSub.subscribe('change-axis', function (msg, newaxis) {
+        vm.svg.selectAll(".ter-polygon").remove();
+        vm.svg.selectAll(".ter-circle").remove();
+        if (newaxis=="minerals") {
+            corners = minCorners
+            _init(vm.data)
+        } else if (newaxis=="vitamins") {
+            corners = vitCorners;
+            _init(vm.data)
+        } else if (newaxis=="calories") {
+            corners = calCorners;
+            _init(vm.data)
+        } else {
+            console.error("Dont know axis: "+newaxis);
+            _init(vm.data)
+        } 
     });
 }
 
