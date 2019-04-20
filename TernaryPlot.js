@@ -208,46 +208,99 @@ var TernaryPlot = function (domSelection, data, options) {
 
             var _nutri = nutritients.filter((n) => d[n] > 0);
             var r = 30 + vm._scale(d.serving_size);
+            var _sum = _.sum(_nutri.map(n => d[n]));
 
-            var _x = _nutri.map((n) => {
-                return d3.scaleLinear()
+            var _x = {};
+            
+            _nutri.forEach((n) => {
+                _x[n] = d3.scaleLinear()
                     .domain([0, _intake_data[n]]).nice()
-                    .range([r, r + 50])
+                    .range([r, r + 20])
             })
 
 
             var _g = d3.select(this)
                 .selectAll(".ter-detail-circle")
 
-            var _phi = _.random(0, 100);
-            _g.selectAll("line")
-                .data(_nutri)
-                .enter()
-                .append("line")
-                .attr('x1', (n, i) => 0)
-                .attr('y1', (n, i) => 0)
-                .attr('x2', (n, i) => _x[i](d[n]) * Math.cos(_phi + Math.PI * 2 * i / _nutri.length))
-                .attr('y2', (n, i) => _x[i](d[n]) * Math.sin(_phi + Math.PI * 2 * i / _nutri.length))
-                .attr('stroke', "#474747")
-                .attr('stroke-width', 2);
+            var arc = d3.arc()
+                .outerRadius(function(n, i) { 
+                    return _x[n.data](d[n.data])
+                })
+                .innerRadius(vm._scale(d.serving_size));
+            
+            var pie = d3.pie()
+                .sort(null)
+                .value(function(n) { 
+                    return d[n]*100.0/_sum;
+                });
+            
+            var _detailg = _g.selectAll(".arc")
+                .data(pie(_nutri))
+                .enter().append("g")
+                .attr("class", "arc");
+          
+            _detailg.append("path")
+                  .attr("d", arc)
+                  .style("fill", (n, i) => {
+                    //   console.log(n, i);
+                      return conf.color[n.data];
+                  })
+          
+            console.log(_nutri, pie(_nutri))
 
-            _g.selectAll("circle")
-                .data(_nutri)
-                .enter()
-                .append("circle")
-                .attr('r', (n, i) => 10)
-                .attr('cx', (n, i) => _x[i](d[n]) * Math.cos(_phi + Math.PI * 2 * i / _nutri.length))
-                .attr('cy', (n, i) => _x[i](d[n]) * Math.sin(_phi + Math.PI * 2 * i / _nutri.length))
-                .style("fill", (n, i) => conf.color[n])
+            _g
+            .append("g")
+            .attr("class", "arc-text")
 
-            _g.selectAll("text")
-                .data(_nutri)
-                .enter()
-                .append("text")
-                .attr('dx', (n, i) => _x[i](d[n]) * Math.cos(_phi + Math.PI * 2 * i / _nutri.length))
-                .attr('dy', (n, i) => _x[i](d[n]) * Math.sin(_phi + Math.PI * 2 * i / _nutri.length))
-                .text((n, i) => nutr_names[n])
-                .style("fill", "#343838")
+            .selectAll(".arc-text-text")
+            .data(pie(_nutri))
+            .enter()
+            .append("text")
+            .attr("class", "arc-text-text")
+            .attr("transform", function(n) { 
+                // console.log(n)
+                var _a = arc.centroid(n) ;
+                return "translate(" + _a + ")"; 
+            })
+            .style("text-anchor", "middle")
+            .text((n, i) => {
+                // console.log(n, nutr_names[n.data])
+                if (n.value < 5) {
+                    return "";
+                }
+                return nutr_names[n.data];
+            })
+            .style("fill", "#fff");
+                  
+
+            // var _phi = _.random(0, 100);
+            // _g.selectAll("line")
+            //     .data(_nutri)
+            //     .enter()
+            //     .append("line")
+            //     .attr('x1', (n, i) => 0)
+            //     .attr('y1', (n, i) => 0)
+            //     .attr('x2', (n, i) => _x[i](d[n]) * Math.cos(_phi + Math.PI * 2 * i / _nutri.length))
+            //     .attr('y2', (n, i) => _x[i](d[n]) * Math.sin(_phi + Math.PI * 2 * i / _nutri.length))
+            //     .attr('stroke', "#474747")
+            //     .attr('stroke-width', 2);
+
+            // _g.selectAll("circle")
+            //     .data(_nutri)
+            //     .enter()
+            //     .append("circle")
+            //     .attr('r', (n, i) => 10)
+            //     .attr('cx', (n, i) => _x[i](d[n]) * Math.cos(_phi + Math.PI * 2 * i / _nutri.length))
+            //     .attr('cy', (n, i) => _x[i](d[n]) * Math.sin(_phi + Math.PI * 2 * i / _nutri.length))
+            //     .style("fill", (n, i) => conf.color[n])
+
+            // _g.selectAll("text")
+            //     .data(_nutri)
+            //     .enter()
+            //     .append("text")
+            
+            //     .text((n, i) => nutr_names[n])
+            //     .style("fill", "#343838")
 
         } else {
             _ready = true;
