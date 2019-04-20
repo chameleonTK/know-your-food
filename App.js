@@ -33,7 +33,7 @@ App.prototype.val = function(item, valueKey, uomKey, dervKey) {
         return 0;
     }
 
-    console.error("Unkonw unit", item[uomKey]);
+    console.error("Unkonw unit", item[uomKey], uomKey);
     return 0;
 }
 

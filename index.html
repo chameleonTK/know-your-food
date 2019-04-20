@@ -269,10 +269,7 @@
                 key: "teenager_male"
             }
 
-            var app = new App();
-            var filterApp = new FilterApp();
-            var explorerApp = new ExplorerApp();
-            var designApp = new DesignApp();
+            
 
             $(".btn-age").click(function () {
                 var key = $(this).attr("id");
@@ -388,9 +385,14 @@
 
             });
 
-            d3.csv('small_sample.csv').then(function (data) {
+            d3.csv('food.csv').then(function (data) {
                 $("#no-filtered").html(data.length)
                 $("#no-all").html(data.length)
+
+                var app = new App();
+                var filterApp = new FilterApp();
+                var explorerApp = new ExplorerApp();
+                var designApp = new DesignApp();
 
                 _data = app.preprocessing(data);
                 filterApp.visualize(_data, { rni: rniKey });

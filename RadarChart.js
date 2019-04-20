@@ -59,7 +59,8 @@ var RadarChart = function(domSelection, data, rni, keys, chartkey) {
     })
 
     var _scales = _.map(_stat, (s, i) => {
-        var max = _.max([s["max"], intake_data[rni.key][s.name]]);
+        // var max = _.max([s["max"], intake_data[rni.key][s.name]]);
+        var max = s["max"];
         if (max <=0) {
             max = 100;
         }
@@ -91,15 +92,23 @@ var RadarChart = function(domSelection, data, rni, keys, chartkey) {
         .on("drag", _dragged)
         .on("end", _dragended))
 
-    var _values = _.map(keys, (label, k) => {
+    var _values = _.map(_stat, (s, i) => {
+        var label = keys[s.name];
+        var k = s.name;
+        // console.log(k, _.min([intake_data[rni.key][k], s.max]))
         return {
-            value: intake_data[rni.key][k],
+            // value: intake_data[rni.key][k],
+            value: _.min([intake_data[rni.key][k], s.max]),
             key:k,
             label
         }
     })
 
     draw(_values);
+    var o = {}
+    o[chartkey] = _values;
+    PubSub.publish('filter-data', o);
+
     function draw(points) {
         _ploygon.attr("points",function(d) { 
             return points.map(function(d, i) {
@@ -124,9 +133,13 @@ var RadarChart = function(domSelection, data, rni, keys, chartkey) {
 
     PubSub.subscribe('change-rni', function(msg, new_rni) {
         rni = new_rni;
-        var newval = _.map(keys, (label, k) => {
+        var newval = _.map(_stat, (s, i) => {
+            var label = keys[s.name];
+            var k = s.name;
+    
             return {
-                value: intake_data[rni.key][k],
+                // value: intake_data[rni.key][k],
+                value: _.min([intake_data[rni.key][k], s.max]),
                 key:k,
                 label
             }
