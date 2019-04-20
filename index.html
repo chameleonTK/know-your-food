@@ -327,6 +327,12 @@
                     })    
                 })
 
+                if (_filter["name"]) {
+                    _filtered_data = _filtered_data.filter((d) => {
+                        return _.includes(d.name.toLowerCase(), _filter["name"].toLowerCase())
+                    })
+                }
+
                 $("#no-filtered").html(_filtered_data.length)
                 PubSub.publish('filtered-data-ready', _filtered_data);
                 

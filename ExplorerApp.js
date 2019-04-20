@@ -42,6 +42,37 @@ ExplorerApp.prototype.init = function(data, options) {
         addFoodItims(newdata);
         vm._chart.draw(newdata)
     });
+
+
+    $("#search-bar-input").on('keyup', _.debounce(function(inp) {
+        $("#food-list li").removeClass("selected");
+        PubSub.publish('filter-data', {
+            name: $("#search-bar-input").val()
+        });
+    }, 150));
+
+    $("#food-list li").on('click', function() {
+        if ($(this).hasClass("selected")) {
+            $(this).removeClass("selected");
+            $("#search-bar-input").val(""); 
+            PubSub.publish('filter-data', {
+                name: ""
+            });
+        } else {
+            var name = decode($(this).html());
+            console.log()
+            $(this).addClass("selected");
+            $("#search-bar-input").val(name); 
+            PubSub.publish('filter-data', {
+                name: name
+            });
+        }
+    });
+
+
+    function decode(s) {
+        return s.replace("&amp;", "&");
+    }
     
 }
 
