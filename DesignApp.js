@@ -12,7 +12,7 @@ DesignApp.prototype = Object.create(App.prototype)
 DesignApp.prototype.visualize = function(data, options) {
     var _data = [];
     var _actual_data = {};
-    $("#design-area").hide();
+    // $("#design-area").hide();
 
     function getCalcories(data) {
         return data.map((d) => {
@@ -34,14 +34,14 @@ DesignApp.prototype.visualize = function(data, options) {
         });
     }
 
-    var caloriesChart = new PieChart("#chart-calories", _data, {innerRadius: 40, innerText:true, opacity:0.5})
-    var proportionChart = new PieChart("#chart-proportion", _data, {})
+    var caloriesChart = new PieChart("#chart-calories", null, {innerRadius: 40, innerText:true, opacity:0.5})
+    var proportionChart = new PieChart("#chart-proportion", null, {})
 
     options["opacity"] = 0.9;
     var nutrientsChart = new ScaleChart("#chart-nutrients-detail", _data, options)
 
     PubSub.subscribe('open-detail', function(msg, newdata) {
-        $("#design-area").show();
+        // $("#design-area").show();
 
         var date = new Date();
         var timestamp = date.getTime();

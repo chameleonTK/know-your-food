@@ -2,7 +2,7 @@ var TernaryPlot = function (domSelection, data, options) {
     var vm = this;
     var height = 600;
     var width = 800;
-    var _ready = true;
+    vm._ready = true;
     var offsetX = 100;
     var marginLeft = 80;
     var marginTop = 80;
@@ -126,9 +126,9 @@ var TernaryPlot = function (domSelection, data, options) {
     corners = calCorners;
 
     var nutritients = [
-        // "protein",
-        // "carbohydrate",
-        // "fat",
+        "protein",
+        "carbohydrate",
+        "fat",
         "vitamin_A",
         "vitamin_B6",
         "vitamin_B12",
@@ -353,14 +353,14 @@ var TernaryPlot = function (domSelection, data, options) {
     }
 
     function _click(d) {
-        if (!_ready && !d.selected) {
+        if (!vm._ready && !d.selected) {
             return;
         }
 
         d.selected = !d.selected;
     
         if (d.selected) {
-            _ready = false;
+            vm._ready = false;
             vm._ele.style("opacity", "0.1")
 
             d3.select(this)
@@ -368,7 +368,14 @@ var TernaryPlot = function (domSelection, data, options) {
                 .attr("class", "ter-circle selected")
 
 
-            var _nutri = nutritients.filter((n) => d[n] > 0);
+            // var _nutri = nutritients.filter((n) => d[n] > 0);
+            var _nutri = _.map(corners, (v, k) => {
+                if (d[k] > 0) return k;
+                return null;
+            }).filter((n) => n!=null);
+
+
+            // _nutri = [];
             var r = 30 + vm._scale(d.serving_size);
             var _sum = _.sum(_nutri.map(n => d[n]));
 
@@ -463,7 +470,7 @@ var TernaryPlot = function (domSelection, data, options) {
             //     .style("fill", "#343838")
 
         } else {
-            _ready = true;
+            vm._ready = true;
             vm._ele.style("opacity", "1")
 
             d3.select(this).attr("class", "ter-circle")
@@ -477,7 +484,7 @@ var TernaryPlot = function (domSelection, data, options) {
         PubSub.publish('open-detail', d.raw);
 
         var hash = "#design-area";
-        $("#design-area").show()
+        // $("#design-area").show()
         $('html').animate({
             scrollTop: $(hash).offset().top
         }, 800, function(){
@@ -514,7 +521,11 @@ var TernaryPlot = function (domSelection, data, options) {
         } else {
             console.error("Dont know axis: "+newaxis);
             _init(vm.data)
-        } 
+        }
+
+        vm._ready = true;
+
+        console.log(this, vm._ready)
     });
 }
 
