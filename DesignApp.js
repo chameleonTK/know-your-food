@@ -11,6 +11,7 @@ var DesignApp = function() {
 DesignApp.prototype = Object.create(App.prototype)
 DesignApp.prototype.visualize = function(data, options) {
     var _data = [];
+    var _actual_data = {};
     $("#design-area").hide();
 
     function getCalcories(data) {
@@ -52,14 +53,14 @@ DesignApp.prototype.visualize = function(data, options) {
             PubSub.publish('del-detail', id);
         });
 
+        
+        _dom.css("background-color", newdata.color)
+        _dom.css("border", newdata.color+" 1px solid")
         _dom.append(del)
         $("#food-tag-list > ul").append(_dom);
-
-        console.log(newdata)
-        // newdata.color = getRandomColor()
         newdata.id = id;
 
-        console.log(id)
+        _actual_data[newdata.name] = newdata;
         _data.push(_.cloneDeep(newdata));
         caloriesChart.draw(getCalcories(_data), _.sum)
         proportionChart.draw(getProportion(_data))
@@ -67,7 +68,6 @@ DesignApp.prototype.visualize = function(data, options) {
     });
 
     PubSub.subscribe('del-detail', function(msg, delIndex) {
-        console.log(_data)
         if (_data.length <=1) {
             return;
         }
@@ -87,5 +87,17 @@ DesignApp.prototype.visualize = function(data, options) {
         proportionChart.draw(getProportion(_data))
         nutrientsChart.draw(_data)
 
+    });
+
+    PubSub.subscribe('change-axis', function (msg, newaxis) {
+        _data.forEach((d) => {
+            d.color = _actual_data[d.name].color
+            var dd = $("#"+d.id)
+            dd.css("background-color", d.color)
+            dd.css("border", d.color+" 1px solid")
+        })
+
+        caloriesChart.draw(getCalcories(_data), _.sum)
+        nutrientsChart.draw(_data)
     });
 }

@@ -45,7 +45,25 @@
         </div>
         
     </div>
-    
+    <div class="container personal-info" style="margin-bottom:30px">
+        <div style="float: left;margin-right: 70px;">
+            <h1 style="margin-bottom: 20px;">Your Age</h1>
+            <div class="btn-group">
+                <!-- <button>Baby</button> -->
+                <button class="btn-age active" id="btn-teenager">Teenager</button>
+                <button class="btn-age" id="btn-elder">Elder</button>
+            </div>
+        </div>
+        <div style="float: left;">
+            <h1 style="margin-bottom: 20px;">Your Gender</h1>
+            <div class="btn-group">
+                <!-- <button>Baby</button> -->
+                <button class="btn-sex active" id="btn-male">Male</button>
+                <button class="btn-sex" id="btn-female">Female</button>
+            </div>
+        </div>
+        <div style="clear:both"></div>
+    </div>
 
     
         <div class="container">
@@ -124,11 +142,33 @@
                 </div>
                 <div style="clear:both"></div>
             </div>
-            <div class="container">
-                <h1 id="graph-title" style="font-size: 14pt;"><b id="no-filtered">259</b> of <span id="no-all">1000</span> dishes</h1>
-                <div class="dist-area">
-                    <div class="chartContainer" id="graph-left">
-                        <div id="chart-food-cluster" class="chart small"></div>
+        </div>
+    </div>
+
+    <div class="container" style="margin-bottom:30px">
+        <h1 id="graph-title"><b id="no-filtered">259</b> of <span id="no-all">1000</span> dishes</h1>
+        <div class="dist-area">
+            <div class="chartContainer" id="graph-left">
+                <div style="margin-top:15px;">
+                    <div class="btn-group" style="float: left;">
+                        <button class="btn-axis active" id="btn-calories">Sources of energy</button>
+                        <button class="btn-axis" id="btn-vitamins">Vitamins</button>
+                        <button class="btn-axis" id="btn-minerals">Minerals</button>
+                    </div>
+                    <div class="scale-size" style="float: left;">
+                        <h2 style="margin-bottom: 10px">Serving size: </h2>
+                        <div id="chart-scale-food-cluster" class="chart small"></div>
+                    </div>
+                    <div style="clear:both"></div>
+                </div>
+                
+
+                <div id="chart-food-cluster" class="chart small"></div>
+            </div>
+            <div class="search-area" id="graph-right">
+                <div class="search-box">
+                    <div id="search-bar">
+                        <input id="search-bar-input" type="text" placeholder="  Find your favorite">
                     </div>
                     <div class="search-area" id="graph-right">
                         <div class="search-box">
@@ -276,6 +316,15 @@
                 PubSub.publish('change-rni', rniKey)
             });
 
+            $(".btn-axis").click(function() {
+                var key = $(this).attr("id");
+                var axis = key.replace("btn-", "");
+
+                $(".btn-axis").removeClass("active");
+                $(this).addClass("active");
+                PubSub.publish('change-axis', axis)
+            });
+
             d3.selection.prototype.moveToFront = function () {
                 return this.each(function () {
                     this.parentNode.appendChild(this);
@@ -342,6 +391,19 @@
                         })
                     })    
                 })
+
+                if (_filter["name"]) {
+                    _filtered_data = _filtered_data.filter((d) => {
+                        return _.includes(d.name.toLowerCase(), _filter["name"].toLowerCase())
+                    })
+                }
+
+                if (_filter["serving-size"] != null && _filter["serving-size"] != undefined) {
+                    console.log(_filtered_data[0])
+                    _filtered_data = _filtered_data.filter((d) => {
+                        return d.serving_size < _filter["serving-size"];
+                    })
+                }
 
                 $("#no-filtered").html(_filtered_data.length)
                 PubSub.publish('filtered-data-ready', _filtered_data);

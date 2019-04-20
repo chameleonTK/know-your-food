@@ -14,7 +14,6 @@ var PieChart = function(domSelection, data, options) {
     
 
     function draw(newdata, fn) {
-        console.log(newdata)
         var _radius = 80;
 
         var _pie = d3.pie()
@@ -28,6 +27,7 @@ var PieChart = function(domSelection, data, options) {
             .outerRadius(_radius)
         
         this.svg.selectAll(".pie-path").remove();
+        this.svg.selectAll(".arc-text-text").remove();
         // console.log(this.svg.selectAll("g").selectAll("path"), this.svg.selectAll("g"))
         this.svg.selectAll("g")
             .data(_pieData)
@@ -38,6 +38,7 @@ var PieChart = function(domSelection, data, options) {
             .attr("fill", (d, i) => {
                 return d.data.value.color
             }).style("opacity", options.opacity)
+        
         
         if (options.innerText) {
 
@@ -54,8 +55,27 @@ var PieChart = function(domSelection, data, options) {
             .attr("dy", "1em")
             .text("kcal")
             .style("font-size", "18px");
+        } else {
 
-            
+            this.svg
+            .selectAll(".arc-text-text")
+            .data(_pieData)
+            .enter()
+            .append("text")
+            .attr("class", "arc-text-text")
+            .attr("transform", function(n) { 
+                var _a = _arc.centroid(n) ;
+                return "translate(" + _a + ")"; 
+            })
+            .style("text-anchor", "middle")
+            .text((n, i) => {
+                // console.log(n, Math.abs(n.endAngle - n.startAngle))
+                if (Math.abs(n.endAngle - n.startAngle) < 0.5) {
+                    return "";
+                }
+                return _.capitalize(n.data.value.name);
+            })
+            .style("fill", "#000");
         }
     }
 

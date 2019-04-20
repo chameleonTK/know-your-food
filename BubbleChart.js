@@ -13,6 +13,13 @@ var BubbleChart = function(domSelection, data, key, options) {
         .attr("height", height)
         .append("g")
 
+    this.svg.append('filter')
+    .attr('id','desaturate')
+    .append('feColorMatrix')
+    .attr('type','matrix')
+    .attr('values',"0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0");
+      
+
     var _data = _.map(keys, (label, name) => {
         var count = _.countBy(data, (d) => d[name]=="True")
         if (count["true"] === undefined) {
@@ -31,6 +38,10 @@ var BubbleChart = function(domSelection, data, key, options) {
     var _x = d3.scaleLinear()
     .domain([0, data.length]).nice()
     .range([2, 45])
+
+    var _image = d3.scaleLinear()
+    .domain([0, data.length]).nice()
+    .range([20, 100])
 
     
 
@@ -53,6 +64,23 @@ var BubbleChart = function(domSelection, data, key, options) {
     .style('display', (d) => d.selected?null:"none")
     .style("pointer-events", "visibleStroke") //credit: https://stackoverflow.com/questions/30951242/d3-mousout-event-precedes-click
 
+
+    _ele.append("image")
+    .attr("xlink:href", function(d){
+        return "icons/"+key+"/"+d.name+".png";
+    })
+    .attr("class", "bubbles-image")
+    .attr("width", (d) => _image(d.count["true"])+"px")
+    .attr("height", (d) => _image(d.count["true"])+"px")
+    .attr("x", (d) => ((_image(d.count["true"])*-0.5)))
+    .attr("y", (d) => ((_image(d.count["true"])*-0.5)))
+    .style("filter", function(d, i) {
+        if (options.default_status) {
+            return "";
+        } else {
+            return ("filter", "url(#desaturate)");
+        }
+    });
 
     _ele
     .append("text")
@@ -105,6 +133,17 @@ var BubbleChart = function(domSelection, data, key, options) {
     function _click(d) {
         d.selected = !d.selected;
         d3.select(this).select(".hover-cir").style('display', d.selected?null:"none")
+
+        d3.select(this).select(".bubbles-image")
+        .style("filter", function(d, i) {
+            if (d.selected) {
+                return "";
+            } else {
+                return ("filter", "url(#desaturate)");
+            }
+        })
+
+
         isclicking = true;
 
         var o = {}
