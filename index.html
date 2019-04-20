@@ -15,7 +15,7 @@
 
 </head>
 
-<body>
+<body style="margin-bottom:50px;">
     <!-- svg pattern definitions -->
     <svg width="0" height="0">
         <defs>
@@ -33,13 +33,11 @@
     </div> -->
     <!-- /header -->
 
-    <div class="container" id="header" style="margin:8px auto">
-        <div id="top-left">
-            <img id="diet_img" src="pic/diet_blue.png" alt="diet">
-        </div>
-        <div id="top-right">
-            <h1 id="title" style="margin-bottom: 10px;">WHICH DIET IS RIGHT FOR ME?</h1>
-            <p id="introduction">
+    <div class="container" id="header" style="margin:8px auto;margin-bottom:30px;color: #474747;min-height: 0px;background-color: inherit">
+        
+        <div style="padding: 30px 0px;text-align: center;min-height: 0px;">
+            <h1 id="title" style="margin-bottom: 10px;text-align: center;color: #474747;font-size: 43px;">WHICH DIET IS RIGHT FOR ME?</h1>
+            <p id="introduction" style="text-align: center;max-width: none;color: #474747;font-size: 13pt;">
                 Lorem ipsum dolor sit amet, ut nam quis illud, ne modus dolore abhorreant eam, elitr exerci adversarium
                 his ea. Nec nusquam deserunt ne, aliquip voluptatum interesset duo eu, id enim animal has. Eu vim
                 habemus officiis, ad pro vero habeo. Sonet soluta voluptaria vis te.
@@ -47,7 +45,7 @@
         </div>
 
     </div>
-    <div class="container personal-info" style="margin-bottom:30px">
+    <div class="container personal-info yellow-card" style="margin-bottom:30px;padding: 10px">
         <div style="float: left;margin-right: 70px;">
             <h1 style="margin-bottom: 20px;">Your Age</h1>
             <div class="btn-group">
@@ -144,41 +142,43 @@
                 </div>
                 <div style="clear:both"></div>
             </div>
-        </div>
-    </div>
 
-    <div class="container" style="margin-bottom:30px">
-        <h1 id="graph-title"><b id="no-filtered">259</b> of <span id="no-all">1000</span> dishes</h1>
-        <div class="dist-area">
-            <div class="chartContainer" id="graph-left">
-                <div style="margin-top:15px;">
-                    <div class="btn-group" style="float: left;">
-                        <button class="btn-axis active" id="btn-calories">Sources of energy</button>
-                        <button class="btn-axis" id="btn-vitamins">Vitamins</button>
-                        <button class="btn-axis" id="btn-minerals">Minerals</button>
+            <div class="container" style="margin-bottom:30px">
+                <h1 id="graph-title"><b id="no-filtered">259</b> of <span id="no-all">1000</span> dishes</h1>
+                <div class="dist-area">
+                    <div class="chartContainer" id="graph-left">
+                        <div style="margin-top:15px;">
+                            <div class="btn-group" style="float: left;">
+                                <button class="btn-axis active" id="btn-calories">Sources of energy</button>
+                                <button class="btn-axis" id="btn-vitamins">Vitamins</button>
+                                <button class="btn-axis" id="btn-minerals">Minerals</button>
+                            </div>
+                            <div class="scale-size" style="float: left;">
+                                <h2 style="margin-bottom: 10px">Serving size: </h2>
+                                <div id="chart-scale-food-cluster" class="chart small"></div>
+                            </div>
+                            <div style="clear:both"></div>
+                        </div>
+        
+                        <div id="chart-food-cluster" class="chart small"></div>
                     </div>
-                    <div class="scale-size" style="float: left;">
-                        <h2 style="margin-bottom: 10px">Serving size: </h2>
-                        <div id="chart-scale-food-cluster" class="chart small"></div>
+                    <div class="search-area" id="graph-right">
+                        <div class="search-box">
+                            <div id="search-bar">
+                                <input id="search-bar-input" type="text" placeholder="  Find your favorite">
+                            </div>
+                            <ul id="food-list"></ul>
+        
+                        </div>
                     </div>
                     <div style="clear:both"></div>
                 </div>
-
-                <div id="chart-food-cluster" class="chart small"></div>
+        
             </div>
-            <div class="search-area" id="graph-right">
-                <div class="search-box">
-                    <div id="search-bar">
-                        <input id="search-bar-input" type="text" placeholder="  Find your favorite">
-                    </div>
-                    <ul id="food-list"></ul>
-
-                </div>
-            </div>
-            <div style="clear:both"></div>
         </div>
-
     </div>
+
+    
 
 
 
@@ -188,7 +188,7 @@
     <div class="container" id="design-area">
         <h1 class="subtitle">Design your diet </h1>
         <h6 class="sub_intro">teae dagfdasgd adgaaewgaw adgasdasgd adgadsgdas</h6>
-        <div class="yellow-card">
+        <div class="yellow-card" style="padding-top:20px">
  
             <h1 id="chosen-list">chosen list</h1>
             <div class="detail-area">

@@ -54,8 +54,8 @@ DesignApp.prototype.visualize = function(data, options) {
         });
 
         
-        _dom.css("background-color", newdata.color)
-        _dom.css("border", newdata.color+" 1px solid")
+        _dom.css("background-color", "#fffff2")
+        _dom.css("border", newdata.color+" 2px solid")
         _dom.append(del)
         $("#food-tag-list > ul").append(_dom);
         newdata.id = id;

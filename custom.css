@@ -62,7 +62,7 @@ h1{
 }
 
 #food-tag-list li{
-    border: #dae9f4 1px solid;
+    border: #dae9f4 2px solid;
     color: #474747;
     padding: 8px 5px 5px 5px;
     display: inline-block;
@@ -139,7 +139,7 @@ h1{
 }
 
 #chosen-food {
-    padding: 20px;
+    /* padding: 20px; */
 }
 
 .chosen-li {
@@ -148,9 +148,9 @@ h1{
 
 #food-tag-list {
     margin: 20px 50px 40px 50px;
-    background-color: #c5cf65;
-    box-shadow: 2px 2px 2px 2px #cccccc;
-    border-radius: 5px;
+    /* background-color: #c5cf65; */
+    /* box-shadow: 2px 2px 2px 2px #cccccc; */
+    /* border-radius: 5px; */
 }
 
 #food-add-left {
@@ -189,9 +189,16 @@ h1{
 }
 
 .yellow-card {
-    width: 1180px;
+    /* width: 1180px;
     background-color: #fffff2;
     box-shadow: 2px 2px 2px 2px #cccccc;
+    border-radius: 5px; */
+
+    
+    border: 3px #c5cf65 solid;
+    padding: 0px;
+    background-color: #fffff2;
+    text-align: left;
     border-radius: 5px;
 }
 
