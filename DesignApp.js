@@ -18,7 +18,7 @@ DesignApp.prototype.visualize = function(data, options) {
         return data.map((d) => {
             return {
                 value: (d.protein*4 + d.carbohydrate*4 + d.fat*9)/1000.0,
-                name: data.name,
+                name: d.name,
                 color: d.color
             }
         });
@@ -34,7 +34,7 @@ DesignApp.prototype.visualize = function(data, options) {
         });
     }
 
-    var caloriesChart = new PieChart("#chart-calories", null, {innerRadius: 40, innerText:true, opacity:0.5})
+    var caloriesChart = new PieChart("#chart-calories", null, {innerRadius: 40, innerText:true, opacity:0.9})
     var proportionChart = new PieChart("#chart-proportion", null, {})
 
     options["opacity"] = 0.9;
@@ -68,9 +68,9 @@ DesignApp.prototype.visualize = function(data, options) {
     });
 
     PubSub.subscribe('del-detail', function(msg, delIndex) {
-        if (_data.length <=1) {
-            return;
-        }
+        // if (_data.length <=1) {
+        //     return;
+        // }
 
         $("#"+delIndex).remove();
 
@@ -83,9 +83,24 @@ DesignApp.prototype.visualize = function(data, options) {
         }).filter(d => d!=null);
 
         _data = newdata;
-        caloriesChart.draw(getCalcories(_data), _.sum)
-        proportionChart.draw(getProportion(_data))
-        nutrientsChart.draw(_data)
+        if (_data.length == 0) {
+            caloriesChart.draw([{
+                value: 1,
+                name: "",
+                color: "#c5cf65"
+            }], () => 0)
+            proportionChart.draw([{
+                value: 1,
+                name: "",
+                color: "#c5cf65"
+            }], () => 0)
+            nutrientsChart.draw([])
+        } else {
+            caloriesChart.draw(getCalcories(_data), _.sum)
+            proportionChart.draw(getProportion(_data))
+            nutrientsChart.draw(_data)
+        }
+        
 
     });
 

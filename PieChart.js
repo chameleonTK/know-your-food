@@ -41,9 +41,12 @@ var PieChart = function(domSelection, data, options) {
             .attr("class", "pie-path")
             .attr("d", _arc)
             .attr("fill", (d, i) => {
-                console.log(d)
                 return d.data.value.color
             }).style("opacity", options.opacity)
+            .attr('stroke', (d, i) => {
+                return d.data.value.color
+            })
+            .attr('stroke-width', 2);
         
         
         if (options.innerText) {
@@ -61,8 +64,8 @@ var PieChart = function(domSelection, data, options) {
             .attr("dy", "1em")
             .text("kcal")
             .style("font-size", "18px");
+            
         } else {
-
             vm.svg
             .selectAll(".arc-text-text")
             .data(_pieData)
@@ -83,6 +86,8 @@ var PieChart = function(domSelection, data, options) {
             })
             .style("fill", "#000");
         }
+
+        //TODO; tooltip for pie chart
     }
 
     vm.draw = draw;

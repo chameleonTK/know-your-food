@@ -335,7 +335,7 @@ var TernaryPlot = function (domSelection, data, options) {
             .attr("dx", 0)
             .attr("dy", 0)
             .text((d) => _.capitalize(d.name))
-            .style("font-size", "10px")
+            .style("font-size", "15px")
             .attr("class", "tootip")
             .style("fill", "#343838")
             .style('display', "none")
@@ -432,9 +432,9 @@ var TernaryPlot = function (domSelection, data, options) {
             .style("text-anchor", "middle")
             .text((n, i) => {
                 // console.log(n, nutr_names[n.data])
-                if (n.value < 5) {
-                    return "";
-                }
+                // if (n.value < 5) {
+                //     return "";
+                // }
                 return nutr_names[n.data];
             })
             .style("fill", "#fff");
@@ -449,8 +449,8 @@ var TernaryPlot = function (domSelection, data, options) {
             //     .attr('y1', (n, i) => 0)
             //     .attr('x2', (n, i) => _x[i](d[n]) * Math.cos(_phi + Math.PI * 2 * i / _nutri.length))
             //     .attr('y2', (n, i) => _x[i](d[n]) * Math.sin(_phi + Math.PI * 2 * i / _nutri.length))
-            //     .attr('stroke', "#474747")
-            //     .attr('stroke-width', 2);
+                // .attr('stroke', "#474747")
+                // .attr('stroke-width', 2);
 
             // _g.selectAll("circle")
             //     .data(_nutri)
