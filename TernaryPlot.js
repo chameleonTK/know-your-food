@@ -16,18 +16,27 @@ var TernaryPlot = function (domSelection, data, options) {
     // 	[width-marginLeft, height-marginTop], //b 
     //     [(width*0.5), 0+marginTop] 
     // ];
-    
-    var corners = [
-        [0 + marginLeft, 0 + marginTop],
-        [width - marginLeft, 0 + marginTop],
-        [(width * 0.5), height - marginTop],
-    ];
 
-    var colorCorners = [
-        hexToRgb(conf.color.protein),
-        hexToRgb(conf.color.carbohydrate),
-        hexToRgb(conf.color.fat),
-    ];
+    var corners = {
+        "protein": {
+            coord: [0 + marginLeft, 0 + marginTop],
+            color: hexToRgb(conf.color.protein),
+            name: "protein",
+            text_anchor: "end",
+        },
+        "carbohydrate": {
+            coord:  [width - marginLeft, 0 + marginTop],
+            color: hexToRgb(conf.color.carbohydrate),
+            name: "carbohydrate",
+            text_anchor: "start",
+        },
+        "fat": {
+            coord:  [(width * 0.5), height - marginTop], 
+            color: hexToRgb(conf.color.fat),
+            name: "fat",
+            text_anchor: "middle",
+        },
+    }
 
     var nutritients = [
         // "protein",
@@ -49,9 +58,9 @@ var TernaryPlot = function (domSelection, data, options) {
     ]
 
     var nutr_names = {
-        // protein: "Protein",
-        // carbohydrate: "Carbohydrate",
-        // fat: "Fat",
+        protein: "Protein",
+        carbohydrate: "Carbohydrate",
+        fat: "Fat",
         vitamin_A: "Vit A",
         vitamin_B6: "Vit B6",
         vitamin_B12: "Vit B12",
@@ -85,35 +94,49 @@ var TernaryPlot = function (domSelection, data, options) {
         } : null;
     }
 
-    function coord(arr) {
-        var a = arr[0], b = arr[1], c = arr[2];
-        var sum, pos = [0, 0];
-        sum = a + b + c;
+    function coord(d) {
+        var pos = [0, 0];
+        var sum = _.sum(_.map(corners, (c, k)=> {
+            return d[k];
+        }))
+
         if (sum !== 0) {
-            a /= sum;
-            b /= sum;
-            c /= sum;
-            pos[0] = corners[0][0] * a + corners[1][0] * b + corners[2][0] * c;
-            pos[1] = corners[0][1] * a + corners[1][1] * b + corners[2][1] * c;
+            // a /= sum;
+            // b /= sum;
+            // c /= sum;
+            pos[0] = _.sum(_.map(corners, (c, k)=> {
+                return c.coord[0]*d[k]/sum;
+            }))
+
+            pos[1] = _.sum(_.map(corners, (c, k)=> {
+                return c.coord[1]*d[k]/sum;
+            }))
+
+            return pos;
         } else {
             return null;
         }
-
-        return pos;
     }
 
     var cc = clickcancel(vm);
-    _init(data);
-    function _init(data) {
-        vm._data = data.map((d) => {
+
+    function formatData(data) {
+        return data.map((d) => {
             sum = d.protein + d.carbohydrate + d.fat;
             if (sum == 0) {
                 return { coord: null };
             }
 
-            var colorR = parseInt(colorCorners[0].r*(d.protein/sum) + colorCorners[1].r*(d.carbohydrate/sum) + colorCorners[2].r*(d.fat/sum));
-            var colorG = parseInt(colorCorners[0].g*(d.protein/sum) + colorCorners[1].g*(d.carbohydrate/sum) + colorCorners[2].g*(d.fat/sum));
-            var colorB = parseInt(colorCorners[0].b*(d.protein/sum) + colorCorners[1].b*(d.carbohydrate/sum) + colorCorners[2].b*(d.fat/sum));
+            // corners
+            var colorR = parseInt(_.sum(_.map(corners, (c, k)=> {
+                return c.color.r*d[k]/sum;
+            })));
+            var colorG = parseInt(_.sum(_.map(corners, (c, k)=> {
+                return c.color.g*d[k]/sum;
+            })));
+            var colorB = parseInt(_.sum(_.map(corners, (c, k)=> {
+                return c.color.b*d[k]/sum;
+            })));
 
             if (colorR > 225) colorR = 225;
             if (colorG > 225) colorG = 225;
@@ -125,7 +148,7 @@ var TernaryPlot = function (domSelection, data, options) {
                 protein: d.protein * 100.0 / sum,
                 carbohydrate: d.carbohydrate * 100.0 / sum,
                 fat: d.fat * 100.0 / sum,
-                coord: coord([d.protein * 100.0 / sum, d.carbohydrate * 100.0 / sum, d.fat * 100.0 / sum]),
+                coord: coord(d),
                 serving_size: d.serving_size,
                 name: d.name,
                 color: d.color,
@@ -140,6 +163,41 @@ var TernaryPlot = function (domSelection, data, options) {
             return o;
 
         }).filter((d) => d.coord != null)
+    }
+
+    _init(data);
+    function _init(data) {
+        vm._data = formatData(data);
+    
+        var polygon = vm.svg
+            .append("g")
+            .attr("class", "ter-polygon")
+            
+        polygon.selectAll("polygon")
+            .data([corners])
+            .enter()
+            .append("polygon")
+            .attr("points",function(d) { 
+                return _.map(corners, function(d, i) {
+                    return [d.coord[0], d.coord[1]].join(",");
+                }).join(" ");
+            })
+            .attr("stroke","#eee")
+            .attr("stroke-width",1)
+            .attr("fill", "rgba(255, 255, 255, 0.8)");
+
+        polygon.selectAll("text")
+            .data(_.map(corners, v => v))
+            .enter()
+            .append("text")
+            .style("text-anchor", n=>n.text_anchor)
+            .attr("x", n=>n.coord[0])
+            .attr("y", n=>n.coord[1])
+            .text((n, i) => {
+                return nutr_names[n.name];
+            })
+            .style("fill", "#000")
+
 
         vm._largest = options.largest;
         vm._scale = d3.scaleLinear()
@@ -187,7 +245,7 @@ var TernaryPlot = function (domSelection, data, options) {
 
     function _mouseout(d) {
         d3.select(this).select(".tootip").style('display', "none")
-        d3.select(this).moveToBack();
+        // d3.select(this).moveToBack();
     }
 
     function _click(d) {
@@ -245,8 +303,6 @@ var TernaryPlot = function (domSelection, data, options) {
                     //   console.log(n, i);
                       return conf.color[n.data];
                   })
-          
-            console.log(_nutri, pie(_nutri))
 
             _g
             .append("g")
