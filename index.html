@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Which diet is right for me? :: CS5044 Information Visualisation</title>
+    <title>Nutriplan</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -15,10 +15,11 @@
     <link rel="stylesheet" href="loading.css">
 </head>
 
-<body style="margin-bottom:50px;overflow: hidden;" >
+<body style="margin-bottom:50px;overflow: hidden;">
     <div class="visbackdrop" style="text-align: center;width:100vw; height:3000px;position: absolute;top: 0px;bottom: 0px;left: 0px;right: 0px;background-color: #000000a8;z-index: 1000;">
-            <div class="lds-ellipsis" style="top: 50%;"><div></div><div></div><div></div><div></div></div>
+        <div class="lds-ellipsis" style="top: 50%;"><div></div><div></div><div></div><div></div></div>
     </div>
+        
     <!-- svg pattern definitions -->
     <svg width="0" height="0">
         <defs>
@@ -39,17 +40,15 @@
     <div class="container" id="header" style="margin:8px auto;margin-bottom:5px;color: #474747;min-height: 0px;background-color: inherit">
         
         <div style="padding: 50px 0px;text-align: center;min-height: 0px; background-color: #5c811a">
-            <h1 id="title" style="margin-bottom: 10px;text-align: center;color: #ffffff;font-size: 43px;">WHICH DIET IS RIGHT FOR ME? 
-                
-            </h1>
+            <h1 id="title" style="margin-bottom: 10px;text-align: center;color: #ffffff;font-size: 43px;">WHICH DIET IS RIGHT FOR ME?</h1>
             <p id="introduction" style="text-align: center;max-width: none;color: #ffffff;font-size: 18px; padding: 13px 80px;">
-                Nowadays people are paying more and more attention to diet health. But how to choose the right food according to your own needs? How to balance the various dietary standards to customize your own menu? The answer is here!
+                Nowadays people are paying more and more attention to their health and diets. Choosing the correct foods to meet your personal diet plan and to achieve your physique goals is not always easy. Quantitative nutritional information is now openly accessible from this interactive webpage, allowing everyone and anyone to create nutritious and achievable menus at home or on the go.
             </p>
         </div>
 
     </div>
 
-    <h1 class="subtitle">Choose your standard <a href="tutorial/" style="color:#c5cf65;cursor:pointer"><i class="tiny material-icons dp48" style="font-size:25px">info_outline</i></a></h1>
+    <h1 class="subtitle">SPECIFY YOUR BODY TYPE  <a href="tutorial/" style="color:#c5cf65;cursor:pointer"><i class="tiny material-icons dp48" style="font-size:25px">info_outline</i></a></h1>
         <h6 class="sub_intro">Different people have a different daily dietary standard</h6>
 
     <div class="container personal-info yellow-card" style="margin-bottom:30px;padding: 10px">
@@ -76,8 +75,8 @@
 
 
     <div class="container">
-        <h1 class="subtitle">Know your food <a href="tutorial/" style="color:#c5cf65;cursor:pointer"><i class="tiny material-icons dp48" style="font-size:25px">info_outline</i></a></h1>
-        <h6 class="sub_intro">Explore the food suits you according to your demands</h6>
+        <h1 class="subtitle">Know your food  <a href="tutorial/" style="color:#c5cf65;cursor:pointer"><i class="tiny material-icons dp48" style="font-size:25px">info_outline</i></a></h1>
+        <h6 class="sub_intro">Specify your demands and explore food that suits you</h6>
 
         <div class="yellow-card">
             <div class="filter-area">
@@ -174,7 +173,7 @@
                     <div class="search-area" id="graph-right">
                         <div class="search-box">
                             <div id="search-bar">
-                                <input id="search-bar-input" type="text" placeholder="  Find your favorite">
+                                <input id="search-bar-input" type="text" placeholder="  Find your favorites">
                             </div>
                             <ul id="food-list"></ul>
         
@@ -195,8 +194,8 @@
 
 
     <div class="container" id="design-area">
-        <h1 class="subtitle">Design your diet <a href="tutorial/" style="color:#c5cf65;cursor:pointer"><i class="tiny material-icons dp48" style="font-size:25px">info_outline</i></a></h1>
-        <h6 class="sub_intro">Make your one day menu based on dietary standards</h6>
+        <h1 class="subtitle">Design your diet  <a href="tutorial/" style="color:#c5cf65;cursor:pointer"><i class="tiny material-icons dp48" style="font-size:25px">info_outline</i></a></h1>
+        <h6 class="sub_intro">Make your one day menu based on dietary requirements</h6>
         <div class="yellow-card" style="padding-top:20px">
  
             <h1 id="chosen-list">chosen list</h1>
@@ -393,8 +392,10 @@
             d3.csv('food.csv').then(function (data) {
                 $("#no-filtered").html(data.length)
                 $("#no-all").html(data.length)
+
                 $(".visbackdrop").hide();
                 $("body").css("overflow", "scroll");
+
                 var app = new App();
                 var filterApp = new FilterApp();
                 var explorerApp = new ExplorerApp();
