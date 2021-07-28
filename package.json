@@ -1,0 +1,26 @@
+{
+  "name": "know-your-food",
+  "version": "1.0.0",
+  "description": "This visualisation is an innovatively simple new platform to help you accelerate your transition to a healtthy lifestyle\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chameleonTK/know-your-food.git"
+  },
+  "author": "Pakawat Nakwijit and \u0016MengXue Li",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chameleonTK/know-your-food/issues"
+  },
+  "homepage": "https://github.com/chameleonTK/know-your-food#readme",
+  "devDependencies": {
+    "ecstatic": "^3.3.2",
+    "gulp": "^3.9.1",
+    "gulp-util": "^3.0.7",
+    "gulp-watch": "^4.3.11",
+    "http": "0.0.0"
+  }
+}
